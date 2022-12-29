@@ -195,7 +195,8 @@ class Job {
     conf.options.split('.').forEach(option => {
       if (option.startsWith('s')) Song.sort(songs, option.substring(option.length - 1))
     })
-    Db.read()
+    if (conf.checkDb) Db.read()
+    else this.execute()
   }
 
   static execute() {
