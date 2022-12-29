@@ -198,6 +198,20 @@ class Job {
                 song.addInfo(pdf, conf.format);
         pdf.end();
     }
+    static withScore() {
+        const pdf = this.createPdf();
+        for (const song of songs)
+            if (song.scores.length !== 0)
+                song.addInfo(pdf, conf.format);
+        pdf.end();
+    }
+    static noScore() {
+        const pdf = this.createPdf();
+        for (const song of songs)
+            if (song.scores.length === 0)
+                song.addInfo(pdf, conf.format);
+        pdf.end();
+    }
     static init() {
         Song.read(conf.path);
         conf.options.split('.').forEach(option => {
@@ -216,6 +230,9 @@ class Job {
             case 'noMedley': return Job.noMedley();
             case 'noYear': return Job.noYear();
             case 'withDuo': return Job.withDuo();
+            case 'withScore': return Job.withScore();
+            case 'noScore': return Job.noScore();
+            default: console.log(`Please provide a valid job: 'printList' 'noVideos' noMedley' 'noYear' 'with Duo' 'withScore' 'noScore'`);
         }
     }
 }
