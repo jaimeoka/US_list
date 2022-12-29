@@ -159,7 +159,7 @@ class Db {
 }
 class Job {
     static createPdf() {
-        const pdf = new PDF({ margin: conf.margin, size: conf.size });
+        const pdf = new PDF({ margin: conf.margin, size: conf.size, layout: conf.layout });
         pdf.pipe(fs.createWriteStream(conf.output));
         pdf.fontSize(conf.fontSize);
         return pdf;

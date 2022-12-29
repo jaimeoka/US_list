@@ -1,5 +1,6 @@
 module.exports.output = 'songsCastellanoNoScore.pdf'
 module.exports.margin = 25
+module.exports.layout = 'landscape'
 module.exports.fontSize = 12
 module.exports.fontSizeSmall = 10
 module.exports.tooLong = 20

@@ -160,7 +160,7 @@ class Db {
 
 class Job {
   private static createPdf(): PDFKit.PDFDocument {
-    const pdf = new PDF({margin: conf.margin, size: conf.size})
+    const pdf = new PDF({margin: conf.margin, size: conf.size, layout: conf.layout})
     pdf.pipe(fs.createWriteStream(conf.output))
     pdf.fontSize(conf.fontSize)
     return pdf
