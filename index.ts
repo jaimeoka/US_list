@@ -4,6 +4,9 @@ import * as PDF from 'pdfkit'
 import * as conf from './configuration'
 import * as SQL from 'sqlite3'
 
+const songs: Song[] = []
+const songMap: Map<string, Song> = new Map()
+
 interface Score {score: number, player: string, difficulty: number, date: number}
 class Song {
   dir = ''
@@ -103,17 +106,16 @@ class Song {
       this.addItem(pdf, item, 'v', this.video !== '', last)
       this.addItem(pdf, item, 'd', this.duo, last)
       this.addItem(pdf, item, 'm', this.medley, last)
-      this.addItem(pdf, item, 'h', this.getHighScore(), last)
+      this.addItem(pdf, item, 'h', this.highScore, last)
       this.addItem(pdf, item, 'x', item.substring(1), last)
     })
   }
 
   private addItem(pdf: PDFKit.PDFDocument, item: string, ch: string, s: string | boolean, last: boolean) {
+    if (!item.startsWith(ch)) return
     pdf.font(item.endsWith('b') ? 'Courier-Bold' : 'Courier')
-    if (item.startsWith(ch)) {
-      if (typeof s === 'string') this.addText(pdf, s, last)
-      if (typeof s === 'boolean') this.addText(pdf,  s ? ch : ' ', last)
-    }
+    if (typeof s === 'string') this.addText(pdf, s, last)
+    if (typeof s === 'boolean') this.addText(pdf,  s ? ch : ' ', last)
   }
 
   private addText(pdf: PDFKit.PDFDocument, text: string, last: boolean) {
@@ -121,13 +123,13 @@ class Song {
     pdf.text(text, {continued: !last}).fontSize(conf.fontSize)
   }
 
-  private getHighScore(): string {
-    return ''
+  private get highScore(): string {
+    if (this.scores.length === 0) return ' '
+    this.scores.sort((a, b) => b.score - a.score)
+    const highScore = this.scores[0]
+    return `${highScore.player}(${highScore.score})`
   }
 }
-
-const songs: Song[] = []
-const songMap: Map<string, Song> = new Map()
 
 interface DbScore {
   Artist: string
@@ -143,11 +145,16 @@ class Db {
     const db = new SQL.Database(conf.db)
     db.all('select Artist, Title, Player, Score, Date from us_songs s, us_scores r where s.ID = r.SongID', (error: Error, rows: DbScore[]) => {
       rows.forEach(row => {
-        const song = songMap.get(row.Artist.trim() + '.' + row.Title.trim())
-        if (song) song.scores.push({score: row.Score, player: row.Player.trim(), difficulty: row.Difficulty, date: row.Date})
+        const artist = row.Artist
+        const title = row.Title
+        // The entries in Ultrastar.db have a null a the end, it must be removed
+        const key = artist.substring(0, artist.length - 1) + '.' + title.substring(0, title.length - 1)
+        const song = songMap.get(key)
+        if (song) song.scores.push({score: row.Score, player: row.Player.substring(0, row.Player.length - 1), difficulty: row.Difficulty, date: row.Date})
       })
+      db.close()
+      Job.execute()
     })
-    db.close()
   }
 }
 
@@ -183,13 +190,15 @@ class Job {
     for (const song of songs) if (song.duo) song.addInfo(pdf, conf.format)
     pdf.end()
   }
-
-  static execute() {
+  static init() {
     Song.read(conf.path)
     conf.options.split('.').forEach(option => {
       if (option.startsWith('s')) Song.sort(songs, option.substring(option.length - 1))
     })
     Db.read()
+  }
+
+  static execute() {
     switch (conf.job) {
       case 'printList': return Job.printList()
       case 'noVideos': return Job.noVideos()
@@ -200,4 +209,4 @@ class Job {
   }
 }
 
-Job.execute()
+Job.init()
