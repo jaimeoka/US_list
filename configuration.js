@@ -1,9 +1,9 @@
 // File name
-module.exports.output = 'songsCastellanoNoScore.pdf'
+module.exports.output = 'songs.pdf'
 // Page margin
 module.exports.margin = 25
 // Page layout: 'portrait' 'landscape'
-module.exports.layout = 'landscape'
+module.exports.layout = 'portrait'
 // Default font
 module.exports.fontSize = 12
 // Font when entry too long
@@ -13,7 +13,7 @@ module.exports.tooLong = 20
 // Page size
 module.exports.size = 'A4'
 // Song directory
-module.exports.path = 'C:\\US\\songs\\Castellano'
+module.exports.path = 'C:\\US\\songs'
 /*
 Format for the song information.
 Entries are separated by '.'
@@ -56,7 +56,7 @@ job:
 'withScore': List songs with score
 'noScore': List songs without score
 */
-module.exports.job = 'noScore'
+module.exports.job = 'printList'
 // check scores in the Database, false if high score is not needed
 module.exports.checkDb = true
 // Path to Ultrastar DB

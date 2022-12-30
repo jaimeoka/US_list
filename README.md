@@ -9,4 +9,8 @@ Para ejecutar el programa:
 - Configurar las opciones deseadas en el archivo configuration.js
 - Ejecutar el programa: 'node index.js'
 
+Para poder listar los puntajes máximos de cada canción, es necesario especificar la ubicación del directorio 'Ultrastar.db'.
+Normalmente está en el subdirectorio AppData/Roaming/ultrastardx del usuario en Windows, pero puede variar de acuerdo al sistema operativo.
+Para estar seguros, lo mejor es buscarlo en el explorador.
+
 Sugerencias a jaimeoka@gmail.com
