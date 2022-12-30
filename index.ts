@@ -218,7 +218,7 @@ class Job {
       case 'withDuo': return Job.withDuo()
       case 'withScore': return Job.withScore()
       case 'noScore': return Job.noScore()
-      default: console.log(`Please provide a valid job: 'printList' 'noVideos' noMedley' 'noYear' 'with Duo' 'withScore' 'noScore'`)
+      default: console.log(`Please provide a valid job: 'printList' 'noVideos' 'noMedley' 'noYear' 'with Duo' 'withScore' 'noScore'`)
     }
   }
 }
