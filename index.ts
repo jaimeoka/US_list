@@ -159,47 +159,6 @@ class Db {
 }
 
 class Job {
-  private static createPdf(): PDFKit.PDFDocument {
-    const pdf = new PDF({margin: conf.margin, size: conf.size, layout: conf.layout})
-    pdf.pipe(fs.createWriteStream(conf.output))
-    pdf.fontSize(conf.fontSize)
-    return pdf
-  }
-  private static printList() {
-    const pdf = this.createPdf()
-    for (const song of songs) song.addInfo(pdf, conf.format)
-    pdf.end()
-  }
-  private static noVideos() {
-    const pdf = this.createPdf()
-    for (const song of songs) if (!song.video) song.addInfo(pdf, conf.format)
-    pdf.end()
-  }
-  private static noMedley() {
-    const pdf = this.createPdf()
-    for (const song of songs) if (!song.medley) song.addInfo(pdf, conf.format)
-    pdf.end()
-  }
-  private static noYear() {
-    const pdf = this.createPdf()
-    for (const song of songs) if (song.year.length !== 4) song.addInfo(pdf, conf.format)
-    pdf.end()
-  }
-  private static withDuo() {
-    const pdf = this.createPdf()
-    for (const song of songs) if (song.duo) song.addInfo(pdf, conf.format)
-    pdf.end()
-  }
-  private static withScore() {
-    const pdf = this.createPdf()
-    for (const song of songs) if (song.scores.length !== 0) song.addInfo(pdf, conf.format)
-    pdf.end()
-  }
-  private static noScore() {
-    const pdf = this.createPdf()
-    for (const song of songs) if (song.scores.length === 0) song.addInfo(pdf, conf.format)
-    pdf.end()
-  }
   static init() {
     Song.read(conf.path)
     conf.options.split('.').forEach(option => {
@@ -208,16 +167,23 @@ class Job {
     if (conf.checkDb) Db.read()
     else this.execute()
   }
+  private static list(predicate: (song: Song) => boolean) {
+    const pdf = new PDF({margin: conf.margin, size: conf.size, layout: conf.layout})
+    pdf.pipe(fs.createWriteStream(conf.output))
+    pdf.fontSize(conf.fontSize)
+    songs.filter(predicate).forEach(song => song.addInfo(pdf, conf.format))
+    pdf.end()
+  }
 
   static execute() {
     switch (conf.job) {
-      case 'printList': return Job.printList()
-      case 'noVideos': return Job.noVideos()
-      case 'noMedley': return Job.noMedley()
-      case 'noYear': return Job.noYear()
-      case 'withDuo': return Job.withDuo()
-      case 'withScore': return Job.withScore()
-      case 'noScore': return Job.noScore()
+      case 'printList': return this.list(song => true)
+      case 'noVideos':  return this.list(song => !song.video)
+      case 'noMedley':  return this.list(song => !song.medley)
+      case 'noYear':    return this.list(song => song.year.length !== 4)
+      case 'withDuo':   return this.list(song => song.duo)
+      case 'withScore': return this.list(song => song.scores.length !== 0)
+      case 'noScore':   return this.list(song => song.scores.length === 0)
       default: console.log(`Please provide a valid job: 'printList' 'noVideos' 'noMedley' 'noYear' 'with Duo' 'withScore' 'noScore'`)
     }
   }
