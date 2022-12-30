@@ -5,6 +5,7 @@ const path = require("path");
 const PDF = require("pdfkit");
 const conf = require("./configuration");
 const SQL = require("sqlite3");
+const process_1 = require("process");
 const songs = [];
 const songMap = new Map();
 class Song {
@@ -142,24 +143,44 @@ class Song {
 class Db {
     static read() {
         const db = new SQL.Database(conf.db);
-        db.all('select Artist, Title, Player, Score, Date from us_songs s, us_scores r where s.ID = r.SongID', (error, rows) => {
-            rows.forEach(row => {
-                const artist = row.Artist;
-                const title = row.Title;
-                // The entries in Ultrastar.db have a null a the end, it must be removed
-                const key = artist.substring(0, artist.length - 1) + '.' + title.substring(0, title.length - 1);
-                const song = songMap.get(key);
-                if (song)
-                    song.scores.push({ score: row.Score, player: row.Player.substring(0, row.Player.length - 1), difficulty: row.Difficulty, date: row.Date });
+        try {
+            db.all('select Artist, Title, Player, Score, Date from us_songs s, us_scores r where s.ID = r.SongID', (error, rows) => {
+                if (!rows) {
+                    console.log('Error accessing the database, please check the path: ' + conf.db);
+                    (0, process_1.exit)(1);
+                }
+                rows.forEach(row => {
+                    const artist = row.Artist;
+                    const title = row.Title;
+                    // The entries in Ultrastar.db have a null a the end, it must be removed
+                    const key = artist.substring(0, artist.length - 1) + '.' + title.substring(0, title.length - 1);
+                    const song = songMap.get(key);
+                    if (song)
+                        song.scores.push({ score: row.Score, player: row.Player.substring(0, row.Player.length - 1), difficulty: row.Difficulty, date: row.Date });
+                });
+                db.close();
+                Job.execute();
             });
-            db.close();
-            Job.execute();
-        });
+        }
+        catch (error) {
+            console.log('Error accessing the database, please check the path: ' + conf.db);
+            (0, process_1.exit)(1);
+        }
     }
 }
 class Job {
     static init() {
-        Song.read(conf.path);
+        try {
+            Song.read(conf.path);
+            if (songs.length === 0) {
+                console.log('No songs found, please check the directory: ' + conf.path);
+                return;
+            }
+        }
+        catch (error) {
+            console.log('Error reading the songs, please check the directory: ' + conf.path);
+            return;
+        }
         conf.options.split('.').forEach(option => {
             if (option.startsWith('s'))
                 Song.sort(songs, option.substring(option.length - 1));
