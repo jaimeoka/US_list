@@ -1,9 +1,9 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import PDFDocument = require('pdfkit')
 import * as conf from './configuration'
 import * as SQL from 'sqlite3'
 import { exit } from 'process'
+import { Job } from './jobs'
 
 const songs: Song[] = []
 const songMap: Map<string, Song> = new Map()
@@ -168,44 +168,9 @@ class Db {
   }
 }
 
-class Job {
-  static init() {
-    try {
-      Song.read(conf.path)
-      if (songs.length === 0) {
-        console.log('No songs found, please check the directory: ' + conf.path)
-        return      
-      }
-    } catch (error) {
-      console.log('Error reading the songs, please check the directory: ' + conf.path)
-      return      
-    }
-    conf.options.split('.').forEach(option => {
-      if (option.startsWith('s')) Song.sort(songs, option.substring(option.length - 1))
-    })
-    if (conf.checkDb) Db.read()
-    else this.execute()
-  }
-  private static list(predicate: (song: Song) => boolean) {
-    const pdf = new PDFDocument({margin: conf.margin, size: conf.size, layout: conf.layout})
-    pdf.pipe(fs.createWriteStream(conf.output))
-    pdf.fontSize(conf.fontSize)
-    songs.filter(predicate).forEach(song => song.addInfo(pdf, conf.format))
-    pdf.end()
-  }
-
-  static execute() {
-    switch (conf.job) {
-      case 'printList': return this.list(song => true)
-      case 'noVideos':  return this.list(song => !song.video)
-      case 'noMedley':  return this.list(song => !song.medley)
-      case 'noYear':    return this.list(song => song.year.length !== 4)
-      case 'withDuo':   return this.list(song => song.duo)
-      case 'withScore': return this.list(song => song.scores.length !== 0)
-      case 'noScore':   return this.list(song => song.scores.length === 0)
-      default: console.log(`Please provide a valid job: 'printList' 'noVideos' 'noMedley' 'noYear' 'with Duo' 'withScore' 'noScore'`)
-    }
-  }
-}
-
-Job.init()
+Job.init({
+  songs,
+  readSongs: () => Song.read(conf.path),
+  sortSongs: (sortBy: string) => Song.sort(songs, sortBy),
+  readDb: () => Db.read()
+})
