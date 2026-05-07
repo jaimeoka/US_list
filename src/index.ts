@@ -1,9 +1,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import * as conf from './configuration'
-import * as SQL from 'sqlite3'
-import { exit } from 'process'
 import { Job } from './jobs'
+import { Db } from './db'
 
 const songs: Song[] = []
 const songMap: Map<string, Song> = new Map()
@@ -132,45 +131,11 @@ class Song {
   }
 }
 
-interface DbScore {
-  Artist: string
-  Title: string
-  Difficulty: number
-  Player: string
-  Score: number
-  Date: number
-}
 
-class Db {
-  static read() {
-    const db = new SQL.Database(conf.db)
-    try {
-      db.all('select Artist, Title, Player, Score, Date from us_songs s, us_scores r where s.ID = r.SongID', (error: Error, rows: DbScore[]) => {
-        if (!rows) {
-          console.log('Error accessing the database, please check the path: ' + conf.db)
-          exit(1)
-        }
-        rows.forEach(row => {
-          const artist = row.Artist
-          const title = row.Title
-          // The entries in Ultrastar.db have a null a the end, it must be removed
-          const key = artist.substring(0, artist.length - 1) + '.' + title.substring(0, title.length - 1)
-          const song = songMap.get(key)
-          if (song) song.scores.push({score: row.Score, player: row.Player.substring(0, row.Player.length - 1), difficulty: row.Difficulty, date: row.Date})
-        })
-        db.close()
-        Job.execute()
-      })
-    } catch (error) {
-      console.log('Error accessing the database, please check the path: ' + conf.db)
-      exit(1)
-    }
-  }
-}
 
 Job.init({
   songs,
   readSongs: () => Song.read(conf.path),
   sortSongs: (sortBy: string) => Song.sort(songs, sortBy),
-  readDb: () => Db.read()
+  readDb: () => Db.read(songMap)
 })
