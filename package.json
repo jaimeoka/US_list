@@ -2,8 +2,10 @@
   "name": "us",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "npx tsc",
+    "start": "npm run build && node dist/index.js",
     "tsc": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
