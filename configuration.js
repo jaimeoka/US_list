@@ -36,7 +36,7 @@ Examples:
 module.exports.format = 'ab.x - .t.x (.y.x).v.d.hb'
 /*
 Extra options
-Firt character: s => sort songs
+First character: s => sort songs
 Second character
 a: by artist
 t: by title

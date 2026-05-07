@@ -1,16 +1,66 @@
-Con esta aplicación de Node.js es posible crear un PDF con las canciones del Ultrastar.
+# Ultrastar Song List PDF Generator
 
-Las diferentes opciones están comentadas en el archivo configuration.js
+This Node.js application generates a PDF with songs from an Ultrastar library.
 
-Para ejecutar el programa:
-- Descargar Node.js: https://nodejs.org/en/download/
-- Clonar o descargar los archivos de esta aplicación en un directorio
-- En el directorio de descarga, ejecutar 'npm i' para instalar las librerías correspondientes
-- Configurar las opciones deseadas en el archivo configuration.js
-- Ejecutar el programa: 'node index.js'
+## What It Does
 
-Para poder listar los puntajes máximos de cada canción, es necesario especificar la ubicación del directorio 'Ultrastar.db'.
-Normalmente está en el subdirectorio AppData/Roaming/ultrastardx del usuario en Windows, pero puede variar de acuerdo al sistema operativo.
-Para estar seguros, lo mejor es buscarlo en el explorador.
+- Reads song data from the folder configured in `configuration.js`
+- Generates a PDF song list
+- Supports custom output formatting, sorting, filtering, and page layout
+- Can optionally read high scores from `Ultrastar.db`
 
-Sugerencias a jaimeoka@gmail.com
+## Configuration
+
+All available options are documented directly in `configuration.js`.
+
+You can configure:
+
+- Output file name
+- Page size, margins, and layout
+- Font sizes
+- Song directory path
+- Song line format
+- Sorting and filtering options
+- Whether to read scores from the Ultrastar database
+- Database path
+
+## Requirements
+
+- Node.js: https://nodejs.org/en/download/
+
+## Setup
+
+1. Clone or download this project.
+2. Open the project folder in a terminal.
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+## Usage
+
+1. Edit `configuration.js` and set the options you want.
+2. Run the program:
+
+```bash
+node index.js
+```
+
+The generated PDF will be saved using the output file name defined in `configuration.js`.
+
+## High Scores from Ultrastar.db
+
+If you want to include each song's highest score, enable database checking in `configuration.js` and set the correct path to `Ultrastar.db`.
+
+On Windows, the database is commonly located under the user's roaming profile, for example:
+
+```text
+C:\Users\<your-user>\AppData\Roaming\ultrastardx\Ultrastar.db
+```
+
+The exact location may vary depending on the operating system and installation, so if needed, search for `Ultrastar.db` manually.
+
+## Contact
+
+Suggestions: jaimeoka@gmail.com
