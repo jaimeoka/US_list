@@ -56,15 +56,13 @@ const configuration: Configuration = {
   format: 'ab.x - .t.x (.y.x).v.d.hb',
   //
   // Extra options
-  // First character: s => sort songs
-  // Second character
-  // a: by artist
-  // t: by title
-  // l: by language
-  // y: by year
-  // g: by genre
-  // c: by creator
-  options: 'sa.sl',
+  // Options are separated by '.'
+  // Sort: first character 's', second character is the field:
+  //   a: by artist  t: by title  l: by language
+  //   y: by year    g: by genre  c: by creator
+  // Group: 'ga' => group songs by artist (prints a bold artist header before each group)
+  //   Note: combine with 'sa' sort so songs are contiguous per artist.
+  options: 'sa.ga',
   //
   // job:
   // 'printList': List all songs
