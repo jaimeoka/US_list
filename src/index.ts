@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import * as PDF from 'pdfkit'
+import PDFDocument = require('pdfkit')
 import * as conf from './configuration'
 import * as SQL from 'sqlite3'
 import { exit } from 'process'
@@ -187,7 +187,7 @@ class Job {
     else this.execute()
   }
   private static list(predicate: (song: Song) => boolean) {
-    const pdf = new PDF({margin: conf.margin, size: conf.size, layout: conf.layout})
+    const pdf = new PDFDocument({margin: conf.margin, size: conf.size, layout: conf.layout})
     pdf.pipe(fs.createWriteStream(conf.output))
     pdf.fontSize(conf.fontSize)
     songs.filter(predicate).forEach(song => song.addInfo(pdf, conf.format))
