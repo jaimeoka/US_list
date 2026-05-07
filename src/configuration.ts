@@ -1,5 +1,5 @@
 type Layout = 'portrait' | 'landscape'
-type Job = 'printList' | 'noVideos' | 'noMedley' | 'noYear' | 'withDuo' | 'withScore' | 'noScore'
+type JobType = 'printList' | 'noVideos' | 'noMedley' | 'noYear' | 'withDuo' | 'withScore' | 'noScore'
 
 interface Configuration {
   output: string
@@ -12,7 +12,7 @@ interface Configuration {
   path: string
   format: string
   options: string
-  job: Job
+  job: JobType
   checkDb: boolean
   db: string
 }

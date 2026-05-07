@@ -1,7 +1,6 @@
 import * as SQL from 'sqlite3'
 import { exit } from 'process'
 import * as conf from './configuration'
-import { Job } from './jobs'
 
 /** Represents a score row retrieved from the Ultrastar database. */
 export interface DbScore {
@@ -20,7 +19,7 @@ export class Db {
    * Calls `Job.execute()` once loading is complete.
    * @param songMap - Map of song keys to Song objects to populate with scores.
    */
-  static read(songMap: Map<string, {scores: {score: number, player: string, difficulty: number, date: number}[]}>) {
+  static read(songMap: Map<string, {scores: {score: number, player: string, difficulty: number, date: number}[]}>, onComplete: () => void) {
     const db = new SQL.Database(conf.db)
     try {
       db.all('select Artist, Title, Player, Score, Date from us_songs s, us_scores r where s.ID = r.SongID', (error: Error, rows: DbScore[]) => {
@@ -37,7 +36,7 @@ export class Db {
           if (song) song.scores.push({score: row.Score, player: row.Player.substring(0, row.Player.length - 1), difficulty: row.Difficulty, date: row.Date})
         })
         db.close()
-        Job.execute()
+        onComplete()
       })
     } catch (error) {
       console.log('Error accessing the database, please check the path: ' + conf.db)
