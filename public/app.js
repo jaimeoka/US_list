@@ -1,3 +1,52 @@
+const PREVIEW_SONG = {
+  artist: 'The Beatles',
+  title: 'Hey Jude',
+  language: 'English',
+  genre: 'Rock',
+  year: '1968',
+  creator: 'JohnDoe',
+  video: true,
+  duo: false,
+  medley: false,
+  highScore: 'Paul(9500)',
+};
+
+function previewFormat() {
+  const format  = document.getElementById('format').value.trim();
+  const preview = document.getElementById('format-preview');
+  if (!format) { preview.innerHTML = ''; return; }
+
+  const items = format.split('.');
+  let html = '<span class="preview-label">Preview &mdash; Hey Jude &middot; The Beatles</span>';
+
+  items.forEach(item => {
+    if (!item) return;
+    const code = item[0];
+    const bold = item.endsWith('b') && item.length > 1;
+    let text = null;
+
+    switch (code) {
+      case 'a': text = PREVIEW_SONG.artist; break;
+      case 't': text = PREVIEW_SONG.title; break;
+      case 'l': text = PREVIEW_SONG.language; break;
+      case 'g': text = PREVIEW_SONG.genre; break;
+      case 'y': text = PREVIEW_SONG.year; break;
+      case 'c': text = PREVIEW_SONG.creator; break;
+      case 'v': text = PREVIEW_SONG.video   ? 'v' : ' '; break;
+      case 'd': text = PREVIEW_SONG.duo     ? 'd' : ' '; break;
+      case 'm': text = PREVIEW_SONG.medley  ? 'm' : ' '; break;
+      case 'h': text = PREVIEW_SONG.highScore; break;
+      case 'x': text = item.substring(1); break;
+      default: return;
+    }
+
+    const escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    html += bold ? `<strong>${escaped}</strong>` : `<span>${escaped}</span>`;
+  });
+
+  preview.innerHTML = html;
+}
+
 function toggleDb(cb) {
   document.getElementById('db-section').classList.toggle('hidden', !cb.checked);
 }

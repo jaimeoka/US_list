@@ -138,6 +138,33 @@ input[type="checkbox"] {
 #db-section { transition: opacity 0.2s; }
 #db-section.hidden { opacity: 0.35; pointer-events: none; }
 
+.format-preview {
+  margin-top: 0.55rem;
+  padding: 0.5rem 0.75rem;
+  background: #0d0d1f;
+  border: 1px solid #2e2e52;
+  border-radius: 7px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #dde1f0;
+  white-space: pre;
+  min-height: 2rem;
+  line-height: 1.6;
+}
+.format-preview:empty { display: none; }
+.format-preview strong {
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.format-preview .preview-label {
+  display: block;
+  font-size: 0.72rem;
+  color: #475569;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  margin-bottom: 0.3rem;
+  white-space: normal;
+}
+
 .btn-run {
   display: flex;
   align-items: center;

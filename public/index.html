@@ -74,7 +74,8 @@
 
     <div class="field">
       <label class="field-label" for="format">Format String</label>
-      <input type="text" id="format" value="ab.x - .t.x (.y.x).v.d.hb">
+      <input type="text" id="format" value="ab.x - .t.x (.y.x).v.d.hb" oninput="previewFormat()">
+      <div id="format-preview" class="format-preview"></div>
       <div class="hint">
         Codes separated by <em>'.'</em> &mdash; append <em>'b'</em> for bold &nbsp;|&nbsp;
         <em>'x'</em> inserts literal text that follows until the next <em>'.'</em>
@@ -173,5 +174,6 @@
 <div id="result-area"></div>
 
 <script src="/app.js"></script>
+<script>previewFormat();</script>
 </body>
 </html>
