@@ -21,6 +21,17 @@ header {
   gap: 1rem;
 }
 
+.app-version {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  border: 1px solid #2e2e52;
+  background: #121225;
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  line-height: 1;
+}
+
 header h1 {
   font-size: 2rem;
   font-weight: 700;

@@ -114,6 +114,30 @@ function bindPickerButtons() {
   });
 }
 
+async function loadAppVersion() {
+  const versionNode = document.getElementById('appVersion');
+  if (!versionNode) {
+    return;
+  }
+
+  try {
+    const res = await fetch('/version');
+    if (!res.ok) {
+      throw new Error('Version endpoint unavailable');
+    }
+
+    const data = await res.json();
+    if (typeof data.version === 'string' && data.version.trim()) {
+      versionNode.textContent = 'v' + data.version.trim();
+      return;
+    }
+  } catch {
+    // Keep fallback label when version cannot be loaded.
+  }
+
+  versionNode.textContent = 'v?';
+}
+
 function previewFormat() {
   const format  = document.getElementById('format').value.trim();
   const preview = document.getElementById('format-preview');
@@ -206,6 +230,7 @@ async function runJob() {
 }
 
 async function initUi() {
+  await loadAppVersion();
   if (window.i18n && typeof window.i18n.init === 'function') {
     await window.i18n.init();
   }

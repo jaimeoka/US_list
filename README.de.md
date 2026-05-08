@@ -7,6 +7,7 @@ Diese Node.js-Anwendung erzeugt ein PDF mit Songs aus einer Ultrastar-Bibliothek
 - English: `README.md`
 - Español: `README.es.md`
 - Deutsch (Standard): diese Datei
+- Aenderungsprotokoll: `CHANGELOG.md`
 
 ## Ueberblick
 
@@ -137,6 +138,50 @@ C:\Users\<dein-benutzer>\AppData\Roaming\ultrastardx\Ultrastar.db
 ```
 
 Der genaue Ort kann je nach Betriebssystem und Installation variieren.
+
+## Automatisierte Releases
+
+Dieses Projekt ist fuer automatische semantische Versionierung und GitHub Releases mit `semantic-release` konfiguriert.
+
+### So funktioniert es
+
+- Jeder Push nach `main` oder `master` startet `.github/workflows/release.yml`.
+- `semantic-release` liest Commit-Nachrichten seit dem letzten Tag und entscheidet, ob ein neues Release erstellt wird.
+- Die Versionierungsregeln folgen Conventional Commits:
+	- `fix: ...` -> Patch-Release
+	- `feat: ...` -> Minor-Release
+	- `feat!: ...` oder `BREAKING CHANGE:` -> Major-Release
+- Beim Release aktualisiert die Pipeline:
+	- `CHANGELOG.md`
+	- `package.json`
+	- `package-lock.json`
+	- Git-Tag und GitHub-Release-Notizen
+
+### Validierung von Commit-Nachrichten
+
+Pull Requests fuehren `.github/workflows/commitlint.yml` aus, um Commit-Nachrichten gegen Conventional Commits zu pruefen.
+
+### Lokale Befehle
+
+- Dry Run (ohne Veroeffentlichung):
+
+```bash
+npm run release:dry
+```
+
+- Manueller Release-Lauf (normalerweise ueber CI):
+
+```bash
+npm run release
+```
+
+### Beispiele fuer Commit-Nachrichten
+
+```text
+feat(gui): show app version badge in header
+fix(server): return better message when db path is invalid
+feat!: drop Node 18 support
+```
 
 ## Kontakt
 

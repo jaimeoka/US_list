@@ -6,6 +6,7 @@ import * as path from 'path'
 const PORT      = 3000
 const indexJs   = path.join(__dirname, 'index.js')
 const publicDir = path.join(__dirname, '..', 'public')
+const packageJsonPath = path.join(__dirname, '..', 'package.json')
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
@@ -42,6 +43,16 @@ function serveStatic(url: string, res: http.ServerResponse) {
 function sendJson(res: http.ServerResponse, statusCode: number, payload: unknown) {
   res.writeHead(statusCode, { 'Content-Type': 'application/json' })
   res.end(JSON.stringify(payload))
+}
+
+function getAppVersion(): string {
+  try {
+    const raw = fs.readFileSync(packageJsonPath, 'utf8')
+    const parsed = JSON.parse(raw) as { version?: string }
+    return parsed.version ?? '0.0.0'
+  } catch {
+    return '0.0.0'
+  }
 }
 
 function readJsonBody(req: http.IncomingMessage): Promise<Record<string, string>> {
@@ -132,6 +143,11 @@ function openNativePicker(kind: 'directory' | 'file', initialPath = ''): Promise
 // ---------------------------------------------------------------------------
 const server = http.createServer((req, res) => {
   const url = req.url ?? '/'
+
+  if (req.method === 'GET' && url === '/version') {
+    sendJson(res, 200, { version: getAppVersion() })
+    return
+  }
 
   // Serve static files (GET)
   if (req.method === 'GET') {

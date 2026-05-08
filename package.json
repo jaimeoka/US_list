@@ -6,16 +6,32 @@
   "scripts": {
     "build": "npx tsc",
     "cli": "npm run build && node dist/index.js",
+    "commitlint": "commitlint --from=HEAD~1 --to=HEAD",
     "gui": "npm run build && node dist/server.js",
+    "bump:patch": "npm version patch --no-git-tag-version",
+    "bump:minor": "npm version minor --no-git-tag-version",
+    "bump:major": "npm version major --no-git-tag-version",
+    "release": "semantic-release",
+    "release:dry": "semantic-release --dry-run",
     "tsc": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Jaime Ocampo (jaimeoka@gmail.com",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
+    "@commitlint/cli": "^21.0.0",
+    "@commitlint/config-conventional": "^21.0.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.6",
+    "@semantic-release/npm": "^12.0.2",
+    "@semantic-release/release-notes-generator": "^14.1.0",
     "@types/node": "^18.11.18",
     "@types/pdfkit": "^0.12.8",
     "@types/sqlite3": "^3.1.8",
+    "conventional-changelog-conventionalcommits": "^9.3.1",
+    "semantic-release": "^24.2.9",
     "typescript": "^4.9.4"
   },
   "dependencies": {
