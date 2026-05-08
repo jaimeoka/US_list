@@ -9,9 +9,18 @@ body {
 }
 
 header {
-  text-align: center;
   margin-bottom: 2.5rem;
 }
+
+.header-top {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 header h1 {
   font-size: 2rem;
   font-weight: 700;
@@ -24,6 +33,30 @@ header p {
   color: #64748b;
   margin-top: 0.4rem;
   font-size: 0.9rem;
+  text-align: center;
+}
+
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #161628;
+  border: 1px solid #252545;
+  border-radius: 8px;
+  padding: 0.35rem 0.5rem;
+}
+
+.lang-switcher label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#languageSelect {
+  min-width: 104px;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.45rem;
 }
 
 .grid {
@@ -289,6 +322,16 @@ input[type="checkbox"] {
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 640px) {
+  .header-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .header-top h1 {
+    text-align: center;
+  }
+  .lang-switcher {
+    justify-content: center;
+  }
   .grid { grid-template-columns: 1fr; }
   .card.full { grid-column: 1; }
   .tooltip-text {

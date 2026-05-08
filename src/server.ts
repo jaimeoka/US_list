@@ -11,6 +11,7 @@ const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
   '.css':  'text/css; charset=utf-8',
   '.js':   'text/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
 }
 
 function requiresDb(format: string, job: string) {
@@ -70,7 +71,7 @@ const server = http.createServer((req, res) => {
         US_JOB:            config.job            ?? 'printList',
       }
 
-      const forcedCheckDb = requiresDb(env.US_FORMAT, env.US_JOB)
+      const forcedCheckDb = requiresDb(env.US_FORMAT ?? '', env.US_JOB ?? '')
 
       const mergedEnv: NodeJS.ProcessEnv = {
         ...process.env,

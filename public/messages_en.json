@@ -1,0 +1,99 @@
+{
+  "page": {
+    "title": "UltraStar Song List Generator"
+  },
+  "header": {
+    "title": "🎤 UltraStar Song List Generator",
+    "subtitle": "Configure your settings and generate a PDF song list",
+    "languageLabel": "Language"
+  },
+  "lang": {
+    "en": "🇺🇸 EN",
+    "es": "🇪🇸 ES",
+    "de": "🇩🇪 DE"
+  },
+  "cards": {
+    "paths": "📁 Paths",
+    "pageSettings": "📄 Page Settings",
+    "format": "🎵 Song Entry Format",
+    "sortGroup": "🔄 Sort & Group",
+    "job": "⚙ Job",
+    "database": "🗃 Database (Scores)"
+  },
+  "labels": {
+    "songsDirectory": "Songs Directory",
+    "outputPdfFilename": "Output PDF Filename",
+    "layout": "Layout",
+    "pageSize": "Page Size",
+    "marginPt": "Margin (pt)",
+    "fontSize": "Font Size",
+    "smallFont": "Small Font",
+    "formatString": "Format String",
+    "sortBy": "Sort By",
+    "grouping": "Grouping",
+    "includeInPdf": "What to include in the PDF",
+    "databasePath": "Database Path"
+  },
+  "layout": {
+    "portrait": "Portrait",
+    "landscape": "Landscape"
+  },
+  "tooltips": {
+    "formatDbRequirement": "If your format includes <em>h</em> (high score), the database is required and enabled automatically.",
+    "jobDbRequirement": "Selecting <em>Songs with a Score</em> or <em>Songs without a Score</em> requires the database and enables it automatically."
+  },
+  "hints": {
+    "format": "Codes separated by <em>'.'</em> — append <em>'b'</em> for bold | <em>'x'</em> inserts literal text that follows until the next <em>'.'</em>",
+    "dbRequired": "Database loading is required for the selected format/job.",
+    "dbNotRequired": "Database loading is not required for the selected format/job."
+  },
+  "codes": {
+    "artist": "artist",
+    "title": "title",
+    "language": "language",
+    "year": "year",
+    "genre": "genre",
+    "creator": "creator",
+    "videoFlag": "video flag",
+    "duoFlag": "duo flag",
+    "medleyFlag": "medley flag",
+    "highScore": "high score",
+    "freeText": "free text",
+    "boldModifier": "bold modifier"
+  },
+  "sort": {
+    "none": "No sorting",
+    "artist": "Artist",
+    "title": "Title",
+    "language": "Language",
+    "year": "Year",
+    "genre": "Genre",
+    "creator": "Creator"
+  },
+  "group": {
+    "artist": "Group entries by Artist (prints a bold header per artist)"
+  },
+  "jobs": {
+    "printList": "All Songs",
+    "noVideos": "Songs without Videos",
+    "noMedley": "Songs without Medley",
+    "noYear": "Songs without Year",
+    "withDuo": "Duo Songs",
+    "withScore": "Songs with a Score",
+    "noScore": "Songs without a Score"
+  },
+  "buttons": {
+    "generatePdf": "Generate PDF"
+  },
+  "status": {
+    "generating": "Generating...",
+    "running": "Running...",
+    "successDefault": "PDF generated successfully!",
+    "errorDefault": "An error occurred.",
+    "serverUnreachable": "Could not reach the server: {message}"
+  },
+  "preview": {
+    "label": "Preview — {title} · {artist}",
+    "sampleLanguage": "English"
+  }
+}

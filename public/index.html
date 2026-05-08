@@ -9,41 +9,50 @@
 <body>
 
 <header>
-  <h1>&#127908; UltraStar Song List Generator</h1>
-  <p>Configure your settings and generate a PDF song list</p>
+  <div class="header-top">
+    <h1 data-i18n="header.title">&#127908; UltraStar Song List Generator</h1>
+    <div class="lang-switcher">
+      <select id="languageSelect" aria-label="Language">
+        <option value="en" data-i18n="lang.en">&#127482;&#127480; EN</option>
+        <option value="es" data-i18n="lang.es">&#127466;&#127480; ES</option>
+        <option value="de" data-i18n="lang.de">&#127465;&#127466; DE</option>
+      </select>
+    </div>
+  </div>
+  <p data-i18n="header.subtitle">Configure your settings and generate a PDF song list</p>
 </header>
 
 <div class="grid">
 
   <!-- ── Paths ── -->
   <div class="card">
-    <div class="card-title">&#128193; Paths</div>
+    <div class="card-title" data-i18n="cards.paths">&#128193; Paths</div>
 
     <div class="field">
-      <label class="field-label" for="songsPath">Songs Directory</label>
+      <label class="field-label" for="songsPath" data-i18n="labels.songsDirectory">Songs Directory</label>
       <input type="text" id="songsPath" value="C:\US\songs" placeholder="C:\US\songs">
     </div>
 
     <div class="field">
-      <label class="field-label" for="outputFile">Output PDF Filename</label>
+      <label class="field-label" for="outputFile" data-i18n="labels.outputPdfFilename">Output PDF Filename</label>
       <input type="text" id="outputFile" value="songs.pdf" placeholder="songs.pdf">
     </div>
   </div>
 
   <!-- ── Page Settings ── -->
   <div class="card">
-    <div class="card-title">&#128196; Page Settings</div>
+    <div class="card-title" data-i18n="cards.pageSettings">&#128196; Page Settings</div>
 
     <div class="field">
-      <label class="field-label">Layout</label>
+      <label class="field-label" data-i18n="labels.layout">Layout</label>
       <div class="radio-row">
-        <label><input type="radio" name="layout" value="portrait" checked> Portrait</label>
-        <label><input type="radio" name="layout" value="landscape"> Landscape</label>
+        <label><input type="radio" name="layout" value="portrait" checked> <span data-i18n="layout.portrait">Portrait</span></label>
+        <label><input type="radio" name="layout" value="landscape"> <span data-i18n="layout.landscape">Landscape</span></label>
       </div>
     </div>
 
     <div class="field">
-      <label class="field-label" for="pageSize">Page Size</label>
+      <label class="field-label" for="pageSize" data-i18n="labels.pageSize">Page Size</label>
       <select id="pageSize">
         <option value="A4" selected>A4</option>
         <option value="A3">A3</option>
@@ -54,15 +63,15 @@
 
     <div class="row">
       <div class="field">
-        <label class="field-label" for="margin">Margin (pt)</label>
+        <label class="field-label" for="margin" data-i18n="labels.marginPt">Margin (pt)</label>
         <input type="number" id="margin" value="25" min="0" max="100">
       </div>
       <div class="field">
-        <label class="field-label" for="fontSize">Font Size</label>
+        <label class="field-label" for="fontSize" data-i18n="labels.fontSize">Font Size</label>
         <input type="number" id="fontSize" value="12" min="6" max="36">
       </div>
       <div class="field">
-        <label class="field-label" for="fontSizeSmall">Small Font</label>
+        <label class="field-label" for="fontSizeSmall" data-i18n="labels.smallFont">Small Font</label>
         <input type="number" id="fontSizeSmall" value="10" min="6" max="36">
       </div>
     </div>
@@ -70,63 +79,63 @@
 
   <!-- ── Format ── -->
   <div class="card full">
-    <div class="card-title">&#127925; Song Entry Format</div>
+    <div class="card-title" data-i18n="cards.format">&#127925; Song Entry Format</div>
 
     <div class="field">
       <label class="field-label with-tooltip" for="format">
-        <span>Format String</span>
+        <span data-i18n="labels.formatString">Format String</span>
         <span class="tooltip-wrap" tabindex="0" aria-label="Database requirement info">
           <span class="tooltip-icon" aria-hidden="true">?</span>
-          <span class="tooltip-text">If your format includes <em>h</em> (high score), the database is required and enabled automatically.</span>
+          <span class="tooltip-text" data-i18n-html="tooltips.formatDbRequirement">If your format includes <em>h</em> (high score), the database is required and enabled automatically.</span>
         </span>
       </label>
       <input type="text" id="format" value="ab.x - .t.x (.y.x).v.d.hb" oninput="previewFormat()">
       <div id="format-preview" class="format-preview"></div>
-      <div class="hint">
+      <div class="hint" data-i18n-html="hints.format">
         Codes separated by <em>'.'</em> &mdash; append <em>'b'</em> for bold &nbsp;|&nbsp;
         <em>'x'</em> inserts literal text that follows until the next <em>'.'</em>
       </div>
     </div>
 
     <div class="codes-grid">
-      <div class="code-item"><span>a</span> &nbsp;artist</div>
-      <div class="code-item"><span>t</span> &nbsp;title</div>
-      <div class="code-item"><span>l</span> &nbsp;language</div>
-      <div class="code-item"><span>y</span> &nbsp;year</div>
-      <div class="code-item"><span>g</span> &nbsp;genre</div>
-      <div class="code-item"><span>c</span> &nbsp;creator</div>
-      <div class="code-item"><span>v</span> &nbsp;video flag</div>
-      <div class="code-item"><span>d</span> &nbsp;duo flag</div>
-      <div class="code-item"><span>m</span> &nbsp;medley flag</div>
-      <div class="code-item"><span>h</span> &nbsp;high score</div>
-      <div class="code-item"><span>x</span> &nbsp;free text</div>
-      <div class="code-item"><span>b</span> &nbsp;bold modifier</div>
+      <div class="code-item"><span>a</span> &nbsp;<span data-i18n="codes.artist">artist</span></div>
+      <div class="code-item"><span>t</span> &nbsp;<span data-i18n="codes.title">title</span></div>
+      <div class="code-item"><span>l</span> &nbsp;<span data-i18n="codes.language">language</span></div>
+      <div class="code-item"><span>y</span> &nbsp;<span data-i18n="codes.year">year</span></div>
+      <div class="code-item"><span>g</span> &nbsp;<span data-i18n="codes.genre">genre</span></div>
+      <div class="code-item"><span>c</span> &nbsp;<span data-i18n="codes.creator">creator</span></div>
+      <div class="code-item"><span>v</span> &nbsp;<span data-i18n="codes.videoFlag">video flag</span></div>
+      <div class="code-item"><span>d</span> &nbsp;<span data-i18n="codes.duoFlag">duo flag</span></div>
+      <div class="code-item"><span>m</span> &nbsp;<span data-i18n="codes.medleyFlag">medley flag</span></div>
+      <div class="code-item"><span>h</span> &nbsp;<span data-i18n="codes.highScore">high score</span></div>
+      <div class="code-item"><span>x</span> &nbsp;<span data-i18n="codes.freeText">free text</span></div>
+      <div class="code-item"><span>b</span> &nbsp;<span data-i18n="codes.boldModifier">bold modifier</span></div>
     </div>
   </div>
 
   <!-- ── Sort & Group ── -->
   <div class="card">
-    <div class="card-title">&#128260; Sort &amp; Group</div>
+    <div class="card-title" data-i18n="cards.sortGroup">&#128260; Sort &amp; Group</div>
 
     <div class="field">
-      <label class="field-label" for="sortBy">Sort By</label>
+      <label class="field-label" for="sortBy" data-i18n="labels.sortBy">Sort By</label>
       <select id="sortBy">
-        <option value="">No sorting</option>
-        <option value="a" selected>Artist</option>
-        <option value="t">Title</option>
-        <option value="l">Language</option>
-        <option value="y">Year</option>
-        <option value="g">Genre</option>
-        <option value="c">Creator</option>
+        <option value="" data-i18n="sort.none">No sorting</option>
+        <option value="a" selected data-i18n="sort.artist">Artist</option>
+        <option value="t" data-i18n="sort.title">Title</option>
+        <option value="l" data-i18n="sort.language">Language</option>
+        <option value="y" data-i18n="sort.year">Year</option>
+        <option value="g" data-i18n="sort.genre">Genre</option>
+        <option value="c" data-i18n="sort.creator">Creator</option>
       </select>
     </div>
 
     <div class="field">
-      <label class="field-label">Grouping</label>
+      <label class="field-label" data-i18n="labels.grouping">Grouping</label>
       <div class="check-row">
         <label>
           <input type="checkbox" id="groupByArtist" checked>
-          Group entries by Artist (prints a bold header per artist)
+          <span data-i18n="group.artist">Group entries by Artist (prints a bold header per artist)</span>
         </label>
       </div>
     </div>
@@ -134,38 +143,38 @@
 
   <!-- ── Job ── -->
   <div class="card">
-    <div class="card-title">&#9881; Job</div>
+    <div class="card-title" data-i18n="cards.job">&#9881; Job</div>
 
     <div class="field">
       <label class="field-label with-tooltip" for="job">
-        <span>What to include in the PDF</span>
+        <span data-i18n="labels.includeInPdf">What to include in the PDF</span>
         <span class="tooltip-wrap" tabindex="0" aria-label="Database requirement info for jobs">
           <span class="tooltip-icon" aria-hidden="true">?</span>
-          <span class="tooltip-text">Selecting <em>Songs with a Score</em> or <em>Songs without a Score</em> requires the database and enables it automatically.</span>
+          <span class="tooltip-text" data-i18n-html="tooltips.jobDbRequirement">Selecting <em>Songs with a Score</em> or <em>Songs without a Score</em> requires the database and enables it automatically.</span>
         </span>
       </label>
       <select id="job" onchange="syncDbState()">
-        <option value="printList" selected>All Songs</option>
-        <option value="noVideos">Songs without Videos</option>
-        <option value="noMedley">Songs without Medley</option>
-        <option value="noYear">Songs without Year</option>
-        <option value="withDuo">Duo Songs</option>
-        <option value="withScore">Songs with a Score</option>
-        <option value="noScore">Songs without a Score</option>
+        <option value="printList" selected data-i18n="jobs.printList">All Songs</option>
+        <option value="noVideos" data-i18n="jobs.noVideos">Songs without Videos</option>
+        <option value="noMedley" data-i18n="jobs.noMedley">Songs without Medley</option>
+        <option value="noYear" data-i18n="jobs.noYear">Songs without Year</option>
+        <option value="withDuo" data-i18n="jobs.withDuo">Duo Songs</option>
+        <option value="withScore" data-i18n="jobs.withScore">Songs with a Score</option>
+        <option value="noScore" data-i18n="jobs.noScore">Songs without a Score</option>
       </select>
     </div>
   </div>
 
   <!-- ── Database ── -->
   <div class="card full">
-    <div class="card-title">&#128451; Database (Scores)</div>
+    <div class="card-title" data-i18n="cards.database">&#128451; Database (Scores)</div>
 
     <div class="field">
       <div id="db-state" class="hint"></div>
     </div>
 
     <div id="db-section" class="field">
-      <label class="field-label" for="dbPath">Database Path</label>
+      <label class="field-label" for="dbPath" data-i18n="labels.databasePath">Database Path</label>
       <input type="text" id="dbPath"
         value="C:\Users\49172\AppData\Roaming\ultrastardx\Ultrastar.db"
         placeholder="C:\Users\...\Ultrastar.db">
@@ -175,12 +184,12 @@
 </div>
 
 <button class="btn-run" id="runBtn" onclick="runJob()">
-  &#9654; Generate PDF
+  &#9654; <span data-i18n="buttons.generatePdf">Generate PDF</span>
 </button>
 
 <div id="result-area"></div>
 
+<script src="/i18n.js"></script>
 <script src="/app.js"></script>
-<script>previewFormat();</script>
 </body>
 </html>

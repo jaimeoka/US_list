@@ -1,0 +1,99 @@
+{
+  "page": {
+    "title": "UltraStar Songlisten-Generator"
+  },
+  "header": {
+    "title": "🎤 UltraStar Songlisten-Generator",
+    "subtitle": "Einstellungen konfigurieren und eine PDF-Songliste erzeugen",
+    "languageLabel": "Sprache"
+  },
+  "lang": {
+    "en": "🇺🇸 EN",
+    "es": "🇪🇸 ES",
+    "de": "🇩🇪 DE"
+  },
+  "cards": {
+    "paths": "📁 Pfade",
+    "pageSettings": "📄 Seiteneinstellungen",
+    "format": "🎵 Songeintragsformat",
+    "sortGroup": "🔄 Sortieren & Gruppieren",
+    "job": "⚙ Job",
+    "database": "🗃 Datenbank (Scores)"
+  },
+  "labels": {
+    "songsDirectory": "Song-Verzeichnis",
+    "outputPdfFilename": "Name der Ausgabe-PDF",
+    "layout": "Layout",
+    "pageSize": "Seitengröße",
+    "marginPt": "Rand (pt)",
+    "fontSize": "Schriftgröße",
+    "smallFont": "Kleine Schrift",
+    "formatString": "Format-String",
+    "sortBy": "Sortieren nach",
+    "grouping": "Gruppierung",
+    "includeInPdf": "Was in die PDF aufgenommen wird",
+    "databasePath": "Datenbankpfad"
+  },
+  "layout": {
+    "portrait": "Hochformat",
+    "landscape": "Querformat"
+  },
+  "tooltips": {
+    "formatDbRequirement": "Wenn dein Format <em>h</em> (Highscore) enthält, ist die Datenbank erforderlich und wird automatisch aktiviert.",
+    "jobDbRequirement": "Die Auswahl <em>Songs mit Score</em> oder <em>Songs ohne Score</em> erfordert die Datenbank und aktiviert sie automatisch."
+  },
+  "hints": {
+    "format": "Codes mit <em>'.'</em> getrennt — <em>'b'</em> für fett anhängen | <em>'x'</em> fügt Literaltext bis zum nächsten <em>'.'</em> ein",
+    "dbRequired": "Das Laden der Datenbank ist für das gewählte Format/den gewählten Job erforderlich.",
+    "dbNotRequired": "Das Laden der Datenbank ist für das gewählte Format/den gewählten Job nicht erforderlich."
+  },
+  "codes": {
+    "artist": "Interpret",
+    "title": "Titel",
+    "language": "Sprache",
+    "year": "Jahr",
+    "genre": "Genre",
+    "creator": "Ersteller",
+    "videoFlag": "Video-Markierung",
+    "duoFlag": "Duo-Markierung",
+    "medleyFlag": "Medley-Markierung",
+    "highScore": "Highscore",
+    "freeText": "Freitext",
+    "boldModifier": "Fett-Modifikator"
+  },
+  "sort": {
+    "none": "Keine Sortierung",
+    "artist": "Interpret",
+    "title": "Titel",
+    "language": "Sprache",
+    "year": "Jahr",
+    "genre": "Genre",
+    "creator": "Ersteller"
+  },
+  "group": {
+    "artist": "Einträge nach Interpret gruppieren (druckt eine fette Kopfzeile pro Interpret)"
+  },
+  "jobs": {
+    "printList": "Alle Songs",
+    "noVideos": "Songs ohne Video",
+    "noMedley": "Songs ohne Medley",
+    "noYear": "Songs ohne Jahr",
+    "withDuo": "Duo-Songs",
+    "withScore": "Songs mit Score",
+    "noScore": "Songs ohne Score"
+  },
+  "buttons": {
+    "generatePdf": "PDF erzeugen"
+  },
+  "status": {
+    "generating": "Wird erzeugt...",
+    "running": "Läuft...",
+    "successDefault": "PDF erfolgreich erzeugt!",
+    "errorDefault": "Ein Fehler ist aufgetreten.",
+    "serverUnreachable": "Server konnte nicht erreicht werden: {message}"
+  },
+  "preview": {
+    "label": "Vorschau — {title} · {artist}",
+    "sampleLanguage": "Englisch"
+  }
+}

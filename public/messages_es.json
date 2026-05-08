@@ -1,0 +1,99 @@
+{
+  "page": {
+    "title": "Generador de Lista de Canciones UltraStar"
+  },
+  "header": {
+    "title": "🎤 Generador de Lista de Canciones UltraStar",
+    "subtitle": "Configura tus opciones y genera una lista de canciones en PDF",
+    "languageLabel": "Idioma"
+  },
+  "lang": {
+    "en": "🇺🇸 EN",
+    "es": "🇪🇸 ES",
+    "de": "🇩🇪 DE"
+  },
+  "cards": {
+    "paths": "📁 Rutas",
+    "pageSettings": "📄 Configuración de Página",
+    "format": "🎵 Formato de Entrada de Canción",
+    "sortGroup": "🔄 Ordenar y Agrupar",
+    "job": "⚙ Tarea",
+    "database": "🗃 Base de Datos (Puntuaciones)"
+  },
+  "labels": {
+    "songsDirectory": "Directorio de Canciones",
+    "outputPdfFilename": "Nombre del PDF de Salida",
+    "layout": "Diseño",
+    "pageSize": "Tamaño de Página",
+    "marginPt": "Margen (pt)",
+    "fontSize": "Tamaño de Fuente",
+    "smallFont": "Fuente Pequeña",
+    "formatString": "Cadena de Formato",
+    "sortBy": "Ordenar por",
+    "grouping": "Agrupación",
+    "includeInPdf": "Qué incluir en el PDF",
+    "databasePath": "Ruta de la Base de Datos"
+  },
+  "layout": {
+    "portrait": "Vertical",
+    "landscape": "Horizontal"
+  },
+  "tooltips": {
+    "formatDbRequirement": "Si tu formato incluye <em>h</em> (puntuación más alta), la base de datos es obligatoria y se activa automáticamente.",
+    "jobDbRequirement": "Seleccionar <em>Canciones con puntuación</em> o <em>Canciones sin puntuación</em> requiere base de datos y la activa automáticamente."
+  },
+  "hints": {
+    "format": "Códigos separados por <em>'.'</em> — añade <em>'b'</em> para negrita | <em>'x'</em> inserta texto literal hasta el siguiente <em>'.'</em>",
+    "dbRequired": "La carga de la base de datos es necesaria para el formato/tarea seleccionado.",
+    "dbNotRequired": "La carga de la base de datos no es necesaria para el formato/tarea seleccionado."
+  },
+  "codes": {
+    "artist": "artista",
+    "title": "título",
+    "language": "idioma",
+    "year": "año",
+    "genre": "género",
+    "creator": "creador",
+    "videoFlag": "marca de video",
+    "duoFlag": "marca de dúo",
+    "medleyFlag": "marca de medley",
+    "highScore": "puntuación más alta",
+    "freeText": "texto libre",
+    "boldModifier": "modificador negrita"
+  },
+  "sort": {
+    "none": "Sin orden",
+    "artist": "Artista",
+    "title": "Título",
+    "language": "Idioma",
+    "year": "Año",
+    "genre": "Género",
+    "creator": "Creador"
+  },
+  "group": {
+    "artist": "Agrupar entradas por Artista (imprime un encabezado en negrita por artista)"
+  },
+  "jobs": {
+    "printList": "Todas las Canciones",
+    "noVideos": "Canciones sin Video",
+    "noMedley": "Canciones sin Medley",
+    "noYear": "Canciones sin Año",
+    "withDuo": "Canciones a Dúo",
+    "withScore": "Canciones con Puntuación",
+    "noScore": "Canciones sin Puntuación"
+  },
+  "buttons": {
+    "generatePdf": "Generar PDF"
+  },
+  "status": {
+    "generating": "Generando...",
+    "running": "Ejecutando...",
+    "successDefault": "¡PDF generado correctamente!",
+    "errorDefault": "Ocurrió un error.",
+    "serverUnreachable": "No se pudo conectar con el servidor: {message}"
+  },
+  "preview": {
+    "label": "Vista previa — {title} · {artist}",
+    "sampleLanguage": "Inglés"
+  }
+}

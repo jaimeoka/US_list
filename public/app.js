@@ -1,7 +1,6 @@
 const PREVIEW_SONG = {
   artist: 'The Beatles',
   title: 'Hey Jude',
-  language: 'English',
   genre: 'Rock',
   year: '1968',
   creator: 'JohnDoe',
@@ -10,6 +9,13 @@ const PREVIEW_SONG = {
   medley: false,
   highScore: 'Paul(9500)',
 };
+
+function t(key, params) {
+  if (window.i18n && typeof window.i18n.t === 'function') {
+    return window.i18n.t(key, params);
+  }
+  return key;
+}
 
 function hasHighScoreItem(format) {
   return format
@@ -36,8 +42,8 @@ function syncDbState() {
   section.classList.toggle('hidden', !needed);
   dbPath.disabled = !needed;
   dbState.textContent = needed
-    ? 'Database loading is required for the selected format/job.'
-    : 'Database loading is not required for the selected format/job.';
+    ? t('hints.dbRequired')
+    : t('hints.dbNotRequired');
 }
 
 function previewFormat() {
@@ -47,7 +53,10 @@ function previewFormat() {
   if (!format) { preview.innerHTML = ''; return; }
 
   const items = format.split('.');
-  let html = '<span class="preview-label">Preview &mdash; Hey Jude &middot; The Beatles</span>';
+  let html = `<span class="preview-label">${t('preview.label', {
+    title: PREVIEW_SONG.title,
+    artist: PREVIEW_SONG.artist,
+  })}</span>`;
 
   items.forEach(item => {
     if (!item) return;
@@ -58,7 +67,7 @@ function previewFormat() {
     switch (code) {
       case 'a': text = PREVIEW_SONG.artist; break;
       case 't': text = PREVIEW_SONG.title; break;
-      case 'l': text = PREVIEW_SONG.language; break;
+      case 'l': text = t('preview.sampleLanguage'); break;
       case 'g': text = PREVIEW_SONG.genre; break;
       case 'y': text = PREVIEW_SONG.year; break;
       case 'c': text = PREVIEW_SONG.creator; break;
@@ -82,11 +91,11 @@ async function runJob() {
   const area = document.getElementById('result-area');
 
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Generating\u2026';
+  btn.innerHTML = `<span class="spinner"></span> ${t('status.generating')}`;
 
   area.className = 'running';
   area.style.display = 'block';
-  area.textContent = 'Running\u2026';
+  area.textContent = t('status.running');
 
   const sortBy       = document.getElementById('sortBy').value;
   const groupByArtist = document.getElementById('groupByArtist').checked;
@@ -120,15 +129,28 @@ async function runJob() {
 
     area.className   = data.success ? 'success' : 'error';
     area.textContent = data.success
-      ? '\u2705 ' + (data.message || 'PDF generated successfully!')
-      : '\u274C ' + (data.message || 'An error occurred.');
+      ? '\u2705 ' + (data.message || t('status.successDefault'))
+      : '\u274C ' + (data.message || t('status.errorDefault'));
   } catch (err) {
     area.className   = 'error';
-    area.textContent = '\u274C Could not reach the server: ' + err.message;
+    area.textContent = '\u274C ' + t('status.serverUnreachable', { message: err.message });
   } finally {
     btn.disabled = false;
-    btn.innerHTML = '&#9654; Generate PDF';
+    btn.innerHTML = `&#9654; <span data-i18n="buttons.generatePdf">${t('buttons.generatePdf')}</span>`;
   }
 }
 
-syncDbState();
+async function initUi() {
+  if (window.i18n && typeof window.i18n.init === 'function') {
+    await window.i18n.init();
+  }
+  syncDbState();
+  previewFormat();
+}
+
+window.addEventListener('i18n:changed', () => {
+  syncDbState();
+  previewFormat();
+});
+
+initUi();
