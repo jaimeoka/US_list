@@ -40,7 +40,8 @@
   },
   "tooltips": {
     "formatDbRequirement": "Si tu formato incluye <em>h</em> (puntuación más alta), la base de datos es obligatoria y se activa automáticamente.",
-    "jobDbRequirement": "Seleccionar <em>Canciones con puntuación</em> o <em>Canciones sin puntuación</em> requiere base de datos y la activa automáticamente."
+    "jobDbRequirement": "Seleccionar <em>Canciones con puntuación</em> o <em>Canciones sin puntuación</em> requiere base de datos y la activa automáticamente.",
+    "databasePath": "El archivo de base de datos debe llamarse <em>Ultrastar.db</em>. Típicamente se encuentra en <em>C:\\Users\\[TuNombreDeUsuario]\\AppData\\Roaming\\ultrastardx\\Ultrastar.db</em>"
   },
   "hints": {
     "format": "Códigos separados por <em>'.'</em> — añade <em>'b'</em> para negrita | <em>'x'</em> inserta texto literal hasta el siguiente <em>'.'</em>",

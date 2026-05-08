@@ -40,7 +40,8 @@
   },
   "tooltips": {
     "formatDbRequirement": "If your format includes <em>h</em> (high score), the database is required and enabled automatically.",
-    "jobDbRequirement": "Selecting <em>Songs with a Score</em> or <em>Songs without a Score</em> requires the database and enables it automatically."
+    "jobDbRequirement": "Selecting <em>Songs with a Score</em> or <em>Songs without a Score</em> requires the database and enables it automatically.",
+    "databasePath": "The database file should be named <em>Ultrastar.db</em>. It is typically located at <em>C:\\Users\\[YourUsername]\\AppData\\Roaming\\ultrastardx\\Ultrastar.db</em>"
   },
   "hints": {
     "format": "Codes separated by <em>'.'</em> — append <em>'b'</em> for bold | <em>'x'</em> inserts literal text that follows until the next <em>'.'</em>",

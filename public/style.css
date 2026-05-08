@@ -129,7 +129,7 @@ label.field-label.with-tooltip {
   left: 50%;
   transform: translateX(-50%);
   bottom: calc(100% + 8px);
-  width: 260px;
+  width: 380px;
   padding: 0.45rem 0.55rem;
   border-radius: 7px;
   border: 1px solid #2e2e52;
@@ -152,6 +152,7 @@ label.field-label.with-tooltip {
 .tooltip-text em {
   font-style: normal;
   color: #c084fc;
+  white-space: nowrap;
 }
 
 input[type="text"],
@@ -393,6 +394,6 @@ input[type="checkbox"] {
   .tooltip-text {
     left: 0;
     transform: none;
-    width: min(260px, calc(100vw - 96px));
+    width: min(380px, calc(100vw - 96px));
   }
 }

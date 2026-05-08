@@ -179,7 +179,13 @@
     </div>
 
     <div id="db-section" class="field">
-      <label class="field-label" for="dbPath" data-i18n="labels.databasePath">Database Path</label>
+      <label class="field-label with-tooltip" for="dbPath">
+        <span data-i18n="labels.databasePath">Database Path</span>
+        <span class="tooltip-wrap" tabindex="0" aria-label="Database path info">
+          <span class="tooltip-icon" aria-hidden="true">?</span>
+          <span class="tooltip-text" data-i18n-html="tooltips.databasePath">The database file should be named <em>Ultrastar.db</em>. It is typically located at <em>C:\Users\[YourUsername]\AppData\Roaming\ultrastardx\Ultrastar.db</em></span>
+        </span>
+      </label>
       <div class="input-action-row">
         <input type="text" id="dbPath"
           value="C:\Users\49172\AppData\Roaming\ultrastardx\Ultrastar.db"

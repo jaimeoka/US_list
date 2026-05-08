@@ -40,7 +40,8 @@
   },
   "tooltips": {
     "formatDbRequirement": "Wenn dein Format <em>h</em> (Highscore) enthält, ist die Datenbank erforderlich und wird automatisch aktiviert.",
-    "jobDbRequirement": "Die Auswahl <em>Songs mit Score</em> oder <em>Songs ohne Score</em> erfordert die Datenbank und aktiviert sie automatisch."
+    "jobDbRequirement": "Die Auswahl <em>Songs mit Score</em> oder <em>Songs ohne Score</em> erfordert die Datenbank und aktiviert sie automatisch.",
+    "databasePath": "Die Datenbankdatei sollte <em>Ultrastar.db</em> heißen. Sie befindet sich normalerweise unter <em>C:\\Users\\[DeinBenutzername]\\AppData\\Roaming\\ultrastardx\\Ultrastar.db</em>"
   },
   "hints": {
     "format": "Codes mit <em>'.'</em> getrennt — <em>'b'</em> für fett anhängen | <em>'x'</em> fügt Literaltext bis zum nächsten <em>'.'</em> ein",
