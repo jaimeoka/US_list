@@ -2,6 +2,14 @@
 
 This Node.js application generates a PDF with songs from an Ultrastar library.
 
+## Languages
+
+- English (default): this file
+- Español: `README.es.md`
+- Deutsch: `README.de.md`
+
+## Overview
+
 It supports two ways of working:
 
 - Command-line mode for the original script-based workflow
@@ -155,3 +163,16 @@ The exact location may vary depending on the operating system and installation, 
 ## Contact
 
 Suggestions: jaimeoka@gmail.com
+
+## Documentation Strategy
+
+For this project, it is better to use one README file per language instead of putting all languages in a single file.
+
+Why:
+
+- Better readability: users can read one language without scrolling through others.
+- Easier maintenance: each translation can be reviewed and updated independently.
+- Better collaboration: contributors can work on one language file without merge conflicts in one very large README.
+- Better linking: you can link directly to the right language from package pages or shared links.
+
+Use this `README.md` as the source (English), and keep `README.es.md` and `README.de.md` aligned with it.
