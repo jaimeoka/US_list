@@ -32,7 +32,10 @@
 
     <div class="field">
       <label class="field-label" for="songsPath" data-i18n="labels.songsDirectory">Songs Directory</label>
-      <input type="text" id="songsPath" value="C:\US\songs" placeholder="C:\US\songs">
+      <div class="input-action-row">
+        <input type="text" id="songsPath" value="C:\US\songs" placeholder="C:\US\songs">
+        <button type="button" class="btn-secondary" id="songsBrowseBtn" data-picker-kind="directory" data-target-input="songsPath" data-i18n="buttons.browse">Browse</button>
+      </div>
     </div>
 
     <div class="field">
@@ -177,9 +180,12 @@
 
     <div id="db-section" class="field">
       <label class="field-label" for="dbPath" data-i18n="labels.databasePath">Database Path</label>
-      <input type="text" id="dbPath"
-        value="C:\Users\49172\AppData\Roaming\ultrastardx\Ultrastar.db"
-        placeholder="C:\Users\...\Ultrastar.db">
+      <div class="input-action-row">
+        <input type="text" id="dbPath"
+          value="C:\Users\49172\AppData\Roaming\ultrastardx\Ultrastar.db"
+          placeholder="C:\Users\...\Ultrastar.db">
+        <button type="button" class="btn-secondary" id="dbBrowseBtn" data-picker-kind="file" data-target-input="dbPath" data-i18n="buttons.browse">Browse</button>
+      </div>
     </div>
   </div>
 

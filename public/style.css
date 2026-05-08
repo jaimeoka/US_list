@@ -176,6 +176,45 @@ select:focus {
 }
 select option { background: #161628; }
 
+.input-action-row {
+  display: flex;
+  gap: 0.65rem;
+  align-items: stretch;
+}
+
+.input-action-row input {
+  flex: 1;
+}
+
+.btn-secondary {
+  flex: 0 0 auto;
+  border: 1px solid #3b3b62;
+  background: linear-gradient(180deg, #20203a, #17172b);
+  color: #dde1f0;
+  border-radius: 7px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.18s, transform 0.18s, opacity 0.18s;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: #7c3aed;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .row { display: flex; gap: 0.75rem; }
 .row .field { flex: 1; }
 
@@ -256,6 +295,23 @@ input[type="checkbox"] {
   font-family: 'Segoe UI', system-ui, sans-serif;
   margin-bottom: 0.3rem;
   white-space: normal;
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .row,
+  .input-action-row,
+  .header-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-secondary {
+    width: 100%;
+  }
 }
 
 .btn-run {

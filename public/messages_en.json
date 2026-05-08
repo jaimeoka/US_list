@@ -83,14 +83,19 @@
     "noScore": "Songs without a Score"
   },
   "buttons": {
-    "generatePdf": "Generate PDF"
+    "generatePdf": "Generate PDF",
+    "browse": "Browse",
+    "browsing": "Opening..."
   },
   "status": {
     "generating": "Generating...",
     "running": "Running...",
     "successDefault": "PDF generated successfully!",
     "errorDefault": "An error occurred.",
-    "serverUnreachable": "Could not reach the server: {message}"
+    "serverUnreachable": "Could not reach the server: {message}",
+    "pickSuccess": "Path selected.",
+    "pickFailed": "Could not open the native file picker.",
+    "pickFailedWithMessage": "Could not open the native file picker: {message}"
   },
   "preview": {
     "label": "Preview — {title} · {artist}",

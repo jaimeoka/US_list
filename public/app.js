@@ -27,6 +27,13 @@ function isScoreJob(job) {
   return job === 'withScore' || job === 'noScore';
 }
 
+function setResultState(type, message) {
+  const area = document.getElementById('result-area');
+  area.className = type;
+  area.style.display = 'block';
+  area.textContent = message;
+}
+
 function requiresDb() {
   const format = document.getElementById('format').value.trim();
   const job = document.getElementById('job').value;
@@ -38,12 +45,58 @@ function syncDbState() {
   const section = document.getElementById('db-section');
   const dbPath = document.getElementById('dbPath');
   const dbState = document.getElementById('db-state');
+  const dbBrowseBtn = document.getElementById('dbBrowseBtn');
 
   section.classList.toggle('hidden', !needed);
   dbPath.disabled = !needed;
+  dbBrowseBtn.disabled = !needed;
   dbState.textContent = needed
     ? t('hints.dbRequired')
     : t('hints.dbNotRequired');
+}
+
+async function pickNativePath(kind, inputId, button) {
+  const input = document.getElementById(inputId);
+  const previousLabel = button.textContent;
+
+  button.disabled = true;
+  button.textContent = t('buttons.browsing');
+
+  try {
+    const res = await fetch('/pick-path', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        kind,
+        initialPath: input.value.trim(),
+      }),
+    });
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      throw new Error(data.message || t('status.pickFailed'));
+    }
+
+    if (data.path) {
+      input.value = data.path;
+      setResultState('success', '\u2705 ' + t('status.pickSuccess'));
+    }
+  } catch (err) {
+    setResultState('error', '\u274C ' + t('status.pickFailedWithMessage', {
+      message: err.message,
+    }));
+  } finally {
+    button.disabled = kind === 'file' && !requiresDb();
+    button.textContent = previousLabel;
+  }
+}
+
+function bindPickerButtons() {
+  document.querySelectorAll('[data-picker-kind]').forEach(button => {
+    button.addEventListener('click', () => {
+      pickNativePath(button.dataset.pickerKind, button.dataset.targetInput, button);
+    });
+  });
 }
 
 function previewFormat() {
@@ -88,14 +141,11 @@ function previewFormat() {
 
 async function runJob() {
   const btn  = document.getElementById('runBtn');
-  const area = document.getElementById('result-area');
 
   btn.disabled = true;
   btn.innerHTML = `<span class="spinner"></span> ${t('status.generating')}`;
 
-  area.className = 'running';
-  area.style.display = 'block';
-  area.textContent = t('status.running');
+  setResultState('running', t('status.running'));
 
   const sortBy       = document.getElementById('sortBy').value;
   const groupByArtist = document.getElementById('groupByArtist').checked;
@@ -127,13 +177,11 @@ async function runJob() {
     });
     const data = await res.json();
 
-    area.className   = data.success ? 'success' : 'error';
-    area.textContent = data.success
+    setResultState(data.success ? 'success' : 'error', data.success
       ? '\u2705 ' + (data.message || t('status.successDefault'))
-      : '\u274C ' + (data.message || t('status.errorDefault'));
+      : '\u274C ' + (data.message || t('status.errorDefault')));
   } catch (err) {
-    area.className   = 'error';
-    area.textContent = '\u274C ' + t('status.serverUnreachable', { message: err.message });
+    setResultState('error', '\u274C ' + t('status.serverUnreachable', { message: err.message }));
   } finally {
     btn.disabled = false;
     btn.innerHTML = `&#9654; <span data-i18n="buttons.generatePdf">${t('buttons.generatePdf')}</span>`;
@@ -144,6 +192,7 @@ async function initUi() {
   if (window.i18n && typeof window.i18n.init === 'function') {
     await window.i18n.init();
   }
+  bindPickerButtons();
   syncDbState();
   previewFormat();
 }

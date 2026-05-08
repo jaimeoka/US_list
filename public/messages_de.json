@@ -83,14 +83,19 @@
     "noScore": "Songs ohne Score"
   },
   "buttons": {
-    "generatePdf": "PDF erzeugen"
+    "generatePdf": "PDF erzeugen",
+    "browse": "Durchsuchen",
+    "browsing": "Wird geoffnet..."
   },
   "status": {
     "generating": "Wird erzeugt...",
     "running": "Läuft...",
     "successDefault": "PDF erfolgreich erzeugt!",
     "errorDefault": "Ein Fehler ist aufgetreten.",
-    "serverUnreachable": "Server konnte nicht erreicht werden: {message}"
+    "serverUnreachable": "Server konnte nicht erreicht werden: {message}",
+    "pickSuccess": "Pfad ausgewahlt.",
+    "pickFailed": "Der native Dateidialog konnte nicht geoffnet werden.",
+    "pickFailedWithMessage": "Der native Dateidialog konnte nicht geoffnet werden: {message}"
   },
   "preview": {
     "label": "Vorschau — {title} · {artist}",

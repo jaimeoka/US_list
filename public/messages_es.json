@@ -83,14 +83,19 @@
     "noScore": "Canciones sin Puntuación"
   },
   "buttons": {
-    "generatePdf": "Generar PDF"
+    "generatePdf": "Generar PDF",
+    "browse": "Buscar",
+    "browsing": "Abriendo..."
   },
   "status": {
     "generating": "Generando...",
     "running": "Ejecutando...",
     "successDefault": "¡PDF generado correctamente!",
     "errorDefault": "Ocurrió un error.",
-    "serverUnreachable": "No se pudo conectar con el servidor: {message}"
+    "serverUnreachable": "No se pudo conectar con el servidor: {message}",
+    "pickSuccess": "Ruta seleccionada.",
+    "pickFailed": "No se pudo abrir el selector nativo de archivos.",
+    "pickFailedWithMessage": "No se pudo abrir el selector nativo de archivos: {message}"
   },
   "preview": {
     "label": "Vista previa — {title} · {artist}",
