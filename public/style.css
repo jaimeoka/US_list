@@ -1,0 +1,207 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #0d0d1f;
+  color: #dde1f0;
+  min-height: 100vh;
+  padding: 2rem 1rem 3rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #c084fc, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+header p {
+  color: #64748b;
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #161628;
+  border: 1px solid #252545;
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+}
+.card.full { grid-column: 1 / -1; }
+
+.card-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #a78bfa;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.1rem;
+}
+
+.field { margin-bottom: 0.9rem; }
+.field:last-child { margin-bottom: 0; }
+
+label.field-label {
+  display: block;
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin-bottom: 0.35rem;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  background: #0d0d1f;
+  border: 1px solid #2e2e52;
+  border-radius: 7px;
+  color: #dde1f0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.88rem;
+  font-family: inherit;
+  transition: border-color 0.18s;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+}
+select option { background: #161628; }
+
+.row { display: flex; gap: 0.75rem; }
+.row .field { flex: 1; }
+
+.radio-row,
+.check-row {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 0.1rem;
+}
+.radio-row label,
+.check-row label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  color: #cbd5e1;
+  cursor: pointer;
+}
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: #7c3aed;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: #475569;
+  margin-top: 0.45rem;
+  line-height: 1.65;
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+.hint em { font-style: normal; color: #64748b; }
+
+.codes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.3rem 1rem;
+  margin-top: 0.5rem;
+}
+.code-item {
+  font-size: 0.76rem;
+  color: #475569;
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+.code-item span {
+  color: #c084fc;
+  font-weight: 600;
+}
+
+#db-section { transition: opacity 0.2s; }
+#db-section.hidden { opacity: 0.35; pointer-events: none; }
+
+.btn-run {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 960px;
+  margin: 1.5rem auto 0;
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  color: white;
+  border: none;
+  border-radius: 11px;
+  padding: 0.9rem 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  font-family: inherit;
+}
+.btn-run:hover:not(:disabled) { opacity: 0.88; }
+.btn-run:active:not(:disabled) { transform: scale(0.99); }
+.btn-run:disabled { opacity: 0.45; cursor: not-allowed; }
+
+#result-area {
+  max-width: 960px;
+  margin: 1.25rem auto 0;
+  border-radius: 12px;
+  padding: 1.2rem 1.4rem;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.83rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  display: none;
+  border: 1px solid transparent;
+}
+#result-area.success {
+  background: #0d1f14;
+  border-color: #166534;
+  color: #86efac;
+}
+#result-area.error {
+  background: #1f0d0d;
+  border-color: #991b1b;
+  color: #fca5a5;
+}
+#result-area.running {
+  background: #161628;
+  border-color: #252545;
+  color: #94a3b8;
+}
+
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+  .card.full { grid-column: 1; }
+}

@@ -2,6 +2,49 @@
 
 This Node.js application generates a PDF with songs from an Ultrastar library.
 
+It supports two ways of working:
+
+- Command-line mode for the original script-based workflow
+- Browser mode with a static HTML frontend and a small Node.js backend
+
+## Quick Start
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Run the original script mode:
+
+```bash
+npm run cli
+```
+
+3. Or start the browser mode:
+
+```bash
+npm run gui
+```
+
+Then open:
+
+```text
+http://localhost:3000
+```
+
+## Project Structure
+
+- `src/index.ts`: main CLI entrypoint
+- `src/configuration.ts`: default configuration values used by the CLI and GUI backend
+- `src/server.ts`: small Node.js server for the browser mode
+- `src/song.ts`: song scanning, parsing, and sorting logic
+- `src/db.ts`: Ultrastar SQLite score loading
+- `src/jobs.ts`: PDF generation logic
+- `public/index.html`: browser UI markup
+- `public/style.css`: browser UI styles
+- `public/app.js`: browser UI behavior
+
 ## What It Does
 
 - Reads song data from the folder configured in `src/configuration.ts`
@@ -40,16 +83,62 @@ npm install
 
 ## Usage
 
+### Option 1: Command-line mode
+
+Use this if you want the original script-based workflow.
+
 1. Edit `src/configuration.ts` and set the options you want.
-2. Run the program:
+2. Run:
 
 ```bash
-npm start
+npm run cli
 ```
 
 This compiles the TypeScript files from `src` into `dist` and then runs the generated JavaScript.
 
 The generated PDF will be saved using the output file name defined in `src/configuration.ts`.
+
+This mode uses:
+
+- `src/index.ts` as the entrypoint
+- `src/configuration.ts` for all options
+- `src/song.ts`, `src/db.ts`, and `src/jobs.ts` for the generation logic
+
+### Option 2: Browser mode
+
+Use this if you want to select the options from an HTML page.
+
+1. Run:
+
+```bash
+npm run gui
+```
+
+2. Open this address in your browser:
+
+```text
+http://localhost:3000
+```
+
+The frontend is served from the `public` folder and the Node.js backend runs the existing generation logic.
+
+This mode uses:
+
+- `public/index.html`, `public/style.css`, and `public/app.js` for the UI
+- `src/server.ts` to serve the static files and receive the form submission
+- `src/index.ts` to run the same PDF generation flow as the CLI mode
+
+The browser mode does not replace the script mode. It only adds a second way to provide the same options.
+
+## How Configuration Works
+
+The project keeps `src/configuration.ts` as the source of the default values.
+
+- In CLI mode, those defaults are used directly
+- In browser mode, the HTML form sends the selected values to the backend
+- The backend passes those values to the generator through environment variables
+
+This means you can still keep sensible defaults in `src/configuration.ts` while overriding them from the browser when needed.
 
 ## High Scores from Ultrastar.db
 

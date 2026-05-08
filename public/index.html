@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UltraStar Song List Generator</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header>
+  <h1>&#127908; UltraStar Song List Generator</h1>
+  <p>Configure your settings and generate a PDF song list</p>
+</header>
+
+<div class="grid">
+
+  <!-- ── Paths ── -->
+  <div class="card">
+    <div class="card-title">&#128193; Paths</div>
+
+    <div class="field">
+      <label class="field-label" for="songsPath">Songs Directory</label>
+      <input type="text" id="songsPath" value="C:\US\songs" placeholder="C:\US\songs">
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="outputFile">Output PDF Filename</label>
+      <input type="text" id="outputFile" value="songs.pdf" placeholder="songs.pdf">
+    </div>
+  </div>
+
+  <!-- ── Page Settings ── -->
+  <div class="card">
+    <div class="card-title">&#128196; Page Settings</div>
+
+    <div class="field">
+      <label class="field-label">Layout</label>
+      <div class="radio-row">
+        <label><input type="radio" name="layout" value="portrait" checked> Portrait</label>
+        <label><input type="radio" name="layout" value="landscape"> Landscape</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="pageSize">Page Size</label>
+      <select id="pageSize">
+        <option value="A4" selected>A4</option>
+        <option value="A3">A3</option>
+        <option value="Letter">Letter</option>
+        <option value="Legal">Legal</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label class="field-label" for="margin">Margin (pt)</label>
+        <input type="number" id="margin" value="25" min="0" max="100">
+      </div>
+      <div class="field">
+        <label class="field-label" for="fontSize">Font Size</label>
+        <input type="number" id="fontSize" value="12" min="6" max="36">
+      </div>
+      <div class="field">
+        <label class="field-label" for="fontSizeSmall">Small Font</label>
+        <input type="number" id="fontSizeSmall" value="10" min="6" max="36">
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Format ── -->
+  <div class="card full">
+    <div class="card-title">&#127925; Song Entry Format</div>
+
+    <div class="field">
+      <label class="field-label" for="format">Format String</label>
+      <input type="text" id="format" value="ab.x - .t.x (.y.x).v.d.hb">
+      <div class="hint">
+        Codes separated by <em>'.'</em> &mdash; append <em>'b'</em> for bold &nbsp;|&nbsp;
+        <em>'x'</em> inserts literal text that follows until the next <em>'.'</em>
+      </div>
+    </div>
+
+    <div class="codes-grid">
+      <div class="code-item"><span>a</span> &nbsp;artist</div>
+      <div class="code-item"><span>t</span> &nbsp;title</div>
+      <div class="code-item"><span>l</span> &nbsp;language</div>
+      <div class="code-item"><span>y</span> &nbsp;year</div>
+      <div class="code-item"><span>g</span> &nbsp;genre</div>
+      <div class="code-item"><span>c</span> &nbsp;creator</div>
+      <div class="code-item"><span>v</span> &nbsp;video flag</div>
+      <div class="code-item"><span>d</span> &nbsp;duo flag</div>
+      <div class="code-item"><span>m</span> &nbsp;medley flag</div>
+      <div class="code-item"><span>h</span> &nbsp;high score</div>
+      <div class="code-item"><span>x</span> &nbsp;free text</div>
+      <div class="code-item"><span>b</span> &nbsp;bold modifier</div>
+    </div>
+  </div>
+
+  <!-- ── Sort & Group ── -->
+  <div class="card">
+    <div class="card-title">&#128260; Sort &amp; Group</div>
+
+    <div class="field">
+      <label class="field-label" for="sortBy">Sort By</label>
+      <select id="sortBy">
+        <option value="">No sorting</option>
+        <option value="a" selected>Artist</option>
+        <option value="t">Title</option>
+        <option value="l">Language</option>
+        <option value="y">Year</option>
+        <option value="g">Genre</option>
+        <option value="c">Creator</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Grouping</label>
+      <div class="check-row">
+        <label>
+          <input type="checkbox" id="groupByArtist" checked>
+          Group entries by Artist (prints a bold header per artist)
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Job ── -->
+  <div class="card">
+    <div class="card-title">&#9881; Job</div>
+
+    <div class="field">
+      <label class="field-label" for="job">What to include in the PDF</label>
+      <select id="job">
+        <option value="printList" selected>All Songs</option>
+        <option value="noVideos">Songs without Videos</option>
+        <option value="noMedley">Songs without Medley</option>
+        <option value="noYear">Songs without Year</option>
+        <option value="withDuo">Duo Songs</option>
+        <option value="withScore">Songs with a Score</option>
+        <option value="noScore">Songs without a Score</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ── Database ── -->
+  <div class="card full">
+    <div class="card-title">&#128451; Database (Scores)</div>
+
+    <div class="field">
+      <div class="check-row">
+        <label>
+          <input type="checkbox" id="checkDb" checked onchange="toggleDb(this)">
+          Load high scores from the UltraStar SQLite database
+        </label>
+      </div>
+    </div>
+
+    <div id="db-section" class="field">
+      <label class="field-label" for="dbPath">Database Path</label>
+      <input type="text" id="dbPath"
+        value="C:\Users\49172\AppData\Roaming\ultrastardx\Ultrastar.db"
+        placeholder="C:\Users\...\Ultrastar.db">
+    </div>
+  </div>
+
+</div>
+
+<button class="btn-run" id="runBtn" onclick="runJob()">
+  &#9654; Generate PDF
+</button>
+
+<div id="result-area"></div>
+
+<script src="/app.js"></script>
+</body>
+</html>

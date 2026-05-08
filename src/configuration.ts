@@ -17,23 +17,25 @@ interface Configuration {
   db: string
 }
 
+const e = process.env
+
 const configuration: Configuration = {
   // File name
-  output: 'songs.pdf',
+  output: e.US_OUTPUT || 'songs.pdf',
   // Page margin
-  margin: 25,
+  margin: e.US_MARGIN ? parseInt(e.US_MARGIN) : 25,
   // Page layout: 'portrait' 'landscape'
-  layout: 'portrait',
+  layout: (e.US_LAYOUT as Layout) || 'portrait',
   // Default font
-  fontSize: 12,
+  fontSize: e.US_FONTSIZE ? parseInt(e.US_FONTSIZE) : 12,
   // Font when entry too long
-  fontSizeSmall: 10,
+  fontSizeSmall: e.US_FONTSIZE_SMALL ? parseInt(e.US_FONTSIZE_SMALL) : 10,
   // Entries longer than this use small font
-  tooLong: 20,
+  tooLong: e.US_TOO_LONG ? parseInt(e.US_TOO_LONG) : 20,
   // Page size
-  size: 'A4',
+  size: e.US_SIZE || 'A4',
   // Song directory
-  path: 'C:\\US\\songs',
+  path: e.US_PATH || 'C:\\US\\songs',
   //
   // Format for the song information.
   // Entries are separated by '.'.
@@ -53,7 +55,7 @@ const configuration: Configuration = {
   // Examples:
   // 'l.x - .a.x - .t' => English - Frank Sinatra - Fly me to the moon
   // 'a.x - .t.x (.y.x) .h' => Frank Sinatra - Fly me to the moon (1963) Singer1(8250)
-  format: 'ab.x - .t.x (.y.x).v.d.hb',
+  format: e.US_FORMAT || 'ab.x - .t.x (.y.x).v.d.hb',
   //
   // Extra options
   // Options are separated by '.'
@@ -62,7 +64,7 @@ const configuration: Configuration = {
   //   y: by year    g: by genre  c: by creator
   // Group: 'ga' => group songs by artist (prints a bold artist header before each group)
   //   Note: combine with 'sa' sort so songs are contiguous per artist.
-  options: 'sa.ga',
+  options: e.US_OPTIONS !== undefined ? e.US_OPTIONS : 'sa.ga',
   //
   // job:
   // 'printList': List all songs
@@ -72,11 +74,11 @@ const configuration: Configuration = {
   // 'with Duo': List songs with duo
   // 'withScore': List songs with score
   // 'noScore': List songs without score
-  job: 'printList',
+  job: (e.US_JOB as JobType) || 'printList',
   // check scores in the Database, false if high score is not needed
-  checkDb: true,
+  checkDb: e.US_CHECK_DB !== undefined ? e.US_CHECK_DB === 'true' : true,
   // Path to Ultrastar DB
-  db: 'C:\\Users\\49172\\AppData\\Roaming\\ultrastardx\\Ultrastar.db'
+  db: e.US_DB || 'C:\\Users\\49172\\AppData\\Roaming\\ultrastardx\\Ultrastar.db'
 }
 
 export = configuration
