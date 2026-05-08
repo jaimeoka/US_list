@@ -10,6 +10,8 @@ const PREVIEW_SONG = {
   highScore: 'Paul(9500)',
 };
 
+let rememberedGroupByArtist = false;
+
 function t(key, params) {
   if (window.i18n && typeof window.i18n.t === 'function') {
     return window.i18n.t(key, params);
@@ -53,6 +55,19 @@ function syncDbState() {
   dbState.textContent = needed
     ? t('hints.dbRequired')
     : t('hints.dbNotRequired');
+}
+
+function syncGroupByArtistState() {
+  const sortBy = document.getElementById('sortBy').value;
+  const groupByArtist = document.getElementById('groupByArtist');
+  const canGroupByArtist = sortBy === 'a';
+
+  if (!groupByArtist.disabled) {
+    rememberedGroupByArtist = groupByArtist.checked;
+  }
+
+  groupByArtist.disabled = !canGroupByArtist;
+  groupByArtist.checked = canGroupByArtist ? rememberedGroupByArtist : false;
 }
 
 async function pickNativePath(kind, inputId, button) {
@@ -147,8 +162,9 @@ async function runJob() {
 
   setResultState('running', t('status.running'));
 
-  const sortBy       = document.getElementById('sortBy').value;
-  const groupByArtist = document.getElementById('groupByArtist').checked;
+  const sortBy = document.getElementById('sortBy').value;
+  const groupByArtistInput = document.getElementById('groupByArtist');
+  const groupByArtist = !groupByArtistInput.disabled && groupByArtistInput.checked;
   const checkDb = requiresDb();
   const opts = [];
   if (sortBy) opts.push('s' + sortBy);
@@ -194,7 +210,13 @@ async function initUi() {
     await window.i18n.init();
   }
   bindPickerButtons();
+  rememberedGroupByArtist = document.getElementById('groupByArtist').checked;
+  document.getElementById('groupByArtist').addEventListener('change', event => {
+    rememberedGroupByArtist = event.target.checked;
+  });
+  document.getElementById('sortBy').addEventListener('change', syncGroupByArtistState);
   syncDbState();
+  syncGroupByArtistState();
   previewFormat();
 }
 
