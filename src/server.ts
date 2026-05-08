@@ -13,6 +13,14 @@ const MIME: Record<string, string> = {
   '.js':   'text/javascript; charset=utf-8',
 }
 
+function requiresDb(format: string, job: string) {
+  const hasHighScoreItem = format
+    .split('.')
+    .some(item => item.trim().startsWith('h'))
+  const isScoreJob = job === 'withScore' || job === 'noScore'
+  return hasHighScoreItem || isScoreJob
+}
+
 function serveStatic(url: string, res: http.ServerResponse) {
   const filePath = path.join(publicDir, url === '/' ? 'index.html' : url)
   // Prevent path traversal outside public/
@@ -58,6 +66,14 @@ const server = http.createServer((req, res) => {
 
       const env: NodeJS.ProcessEnv = {
         ...process.env,
+        US_FORMAT:         config.format         ?? 'ab.x - .t.x (.y.x).v.d.hb',
+        US_JOB:            config.job            ?? 'printList',
+      }
+
+      const forcedCheckDb = requiresDb(env.US_FORMAT, env.US_JOB)
+
+      const mergedEnv: NodeJS.ProcessEnv = {
+        ...process.env,
         US_PATH:           config.path          ?? '',
         US_OUTPUT:         config.output         ?? 'songs.pdf',
         US_LAYOUT:         config.layout         ?? 'portrait',
@@ -65,14 +81,14 @@ const server = http.createServer((req, res) => {
         US_MARGIN:         String(config.margin  ?? 25),
         US_FONTSIZE:       String(config.fontSize ?? 12),
         US_FONTSIZE_SMALL: String(config.fontSizeSmall ?? 10),
-        US_FORMAT:         config.format         ?? 'ab.x - .t.x (.y.x).v.d.hb',
+        US_FORMAT:         env.US_FORMAT,
         US_OPTIONS:        config.options        ?? '',
-        US_JOB:            config.job            ?? 'printList',
-        US_CHECK_DB:       String(config.checkDb === 'true'),
+        US_JOB:            env.US_JOB,
+        US_CHECK_DB:       String(forcedCheckDb),
         US_DB:             config.db             ?? '',
       }
 
-      exec(`node "${indexJs}"`, { env, timeout: 120_000 }, (error, stdout, stderr) => {
+      exec(`node "${indexJs}"`, { env: mergedEnv, timeout: 120_000 }, (error, stdout, stderr) => {
         const combined = [stdout, stderr].filter(Boolean).join('\n').trim()
         res.writeHead(200, { 'Content-Type': 'application/json' })
         if (error) {

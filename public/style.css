@@ -61,6 +61,66 @@ label.field-label {
   margin-bottom: 0.35rem;
 }
 
+label.field-label.with-tooltip {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #475569;
+  border-radius: 50%;
+  color: #94a3b8;
+  cursor: help;
+}
+
+.tooltip-wrap:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.28);
+}
+
+.tooltip-icon {
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.tooltip-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(100% + 8px);
+  width: 260px;
+  padding: 0.45rem 0.55rem;
+  border-radius: 7px;
+  border: 1px solid #2e2e52;
+  background: #0d0d1f;
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease;
+  z-index: 4;
+}
+
+.tooltip-wrap:hover .tooltip-text,
+.tooltip-wrap:focus .tooltip-text,
+.tooltip-wrap:focus-within .tooltip-text {
+  opacity: 1;
+}
+
+.tooltip-text em {
+  font-style: normal;
+  color: #c084fc;
+}
+
 input[type="text"],
 input[type="number"],
 select {
@@ -231,4 +291,9 @@ input[type="checkbox"] {
 @media (max-width: 640px) {
   .grid { grid-template-columns: 1fr; }
   .card.full { grid-column: 1; }
+  .tooltip-text {
+    left: 0;
+    transform: none;
+    width: min(260px, calc(100vw - 96px));
+  }
 }

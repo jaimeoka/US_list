@@ -73,7 +73,13 @@
     <div class="card-title">&#127925; Song Entry Format</div>
 
     <div class="field">
-      <label class="field-label" for="format">Format String</label>
+      <label class="field-label with-tooltip" for="format">
+        <span>Format String</span>
+        <span class="tooltip-wrap" tabindex="0" aria-label="Database requirement info">
+          <span class="tooltip-icon" aria-hidden="true">?</span>
+          <span class="tooltip-text">If your format includes <em>h</em> (high score), the database is required and enabled automatically.</span>
+        </span>
+      </label>
       <input type="text" id="format" value="ab.x - .t.x (.y.x).v.d.hb" oninput="previewFormat()">
       <div id="format-preview" class="format-preview"></div>
       <div class="hint">
@@ -131,8 +137,14 @@
     <div class="card-title">&#9881; Job</div>
 
     <div class="field">
-      <label class="field-label" for="job">What to include in the PDF</label>
-      <select id="job">
+      <label class="field-label with-tooltip" for="job">
+        <span>What to include in the PDF</span>
+        <span class="tooltip-wrap" tabindex="0" aria-label="Database requirement info for jobs">
+          <span class="tooltip-icon" aria-hidden="true">?</span>
+          <span class="tooltip-text">Selecting <em>Songs with a Score</em> or <em>Songs without a Score</em> requires the database and enables it automatically.</span>
+        </span>
+      </label>
+      <select id="job" onchange="syncDbState()">
         <option value="printList" selected>All Songs</option>
         <option value="noVideos">Songs without Videos</option>
         <option value="noMedley">Songs without Medley</option>
@@ -149,12 +161,7 @@
     <div class="card-title">&#128451; Database (Scores)</div>
 
     <div class="field">
-      <div class="check-row">
-        <label>
-          <input type="checkbox" id="checkDb" checked onchange="toggleDb(this)">
-          Load high scores from the UltraStar SQLite database
-        </label>
-      </div>
+      <div id="db-state" class="hint"></div>
     </div>
 
     <div id="db-section" class="field">

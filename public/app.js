@@ -11,9 +11,39 @@ const PREVIEW_SONG = {
   highScore: 'Paul(9500)',
 };
 
+function hasHighScoreItem(format) {
+  return format
+    .split('.')
+    .some(item => item.trim().startsWith('h'));
+}
+
+function isScoreJob(job) {
+  return job === 'withScore' || job === 'noScore';
+}
+
+function requiresDb() {
+  const format = document.getElementById('format').value.trim();
+  const job = document.getElementById('job').value;
+  return hasHighScoreItem(format) || isScoreJob(job);
+}
+
+function syncDbState() {
+  const needed = requiresDb();
+  const section = document.getElementById('db-section');
+  const dbPath = document.getElementById('dbPath');
+  const dbState = document.getElementById('db-state');
+
+  section.classList.toggle('hidden', !needed);
+  dbPath.disabled = !needed;
+  dbState.textContent = needed
+    ? 'Database loading is required for the selected format/job.'
+    : 'Database loading is not required for the selected format/job.';
+}
+
 function previewFormat() {
   const format  = document.getElementById('format').value.trim();
   const preview = document.getElementById('format-preview');
+  syncDbState();
   if (!format) { preview.innerHTML = ''; return; }
 
   const items = format.split('.');
@@ -47,10 +77,6 @@ function previewFormat() {
   preview.innerHTML = html;
 }
 
-function toggleDb(cb) {
-  document.getElementById('db-section').classList.toggle('hidden', !cb.checked);
-}
-
 async function runJob() {
   const btn  = document.getElementById('runBtn');
   const area = document.getElementById('result-area');
@@ -64,6 +90,7 @@ async function runJob() {
 
   const sortBy       = document.getElementById('sortBy').value;
   const groupByArtist = document.getElementById('groupByArtist').checked;
+  const checkDb = requiresDb();
   const opts = [];
   if (sortBy) opts.push('s' + sortBy);
   if (groupByArtist) opts.push('ga');
@@ -79,7 +106,7 @@ async function runJob() {
     format:        document.getElementById('format').value.trim(),
     options:       opts.join('.'),
     job:           document.getElementById('job').value,
-    checkDb:       String(document.getElementById('checkDb').checked),
+    checkDb:       String(checkDb),
     db:            document.getElementById('dbPath').value.trim(),
   };
 
@@ -103,3 +130,5 @@ async function runJob() {
     btn.innerHTML = '&#9654; Generate PDF';
   }
 }
+
+syncDbState();
