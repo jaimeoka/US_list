@@ -28,6 +28,7 @@
     "marginPt": "Rand (pt)",
     "fontSize": "Schriftgröße",
     "smallFont": "Kleine Schrift",
+    "tooLongThreshold": "Schwelle fur Lange Eintrage",
     "formatString": "Format-String",
     "sortBy": "Sortieren nach",
     "grouping": "Gruppierung",
@@ -41,6 +42,7 @@
   "tooltips": {
     "formatDbRequirement": "Wenn dein Format <em>h</em> (Highscore) enthält, ist die Datenbank erforderlich und wird automatisch aktiviert.",
     "jobDbRequirement": "Die Auswahl <em>Songs mit Score</em> oder <em>Songs ohne Score</em> erfordert die Datenbank und aktiviert sie automatisch.",
+    "smallFont": "Wird verwendet, wenn ein Eintrag den Wert <em>Schwelle fur Lange Eintrage</em> uberschreitet.",
     "databasePath": "Die Datenbankdatei sollte <em>Ultrastar.db</em> heißen. Sie befindet sich normalerweise unter <em>C:\\Users\\[DeinBenutzername]\\AppData\\Roaming\\ultrastardx\\Ultrastar.db</em>"
   },
   "hints": {

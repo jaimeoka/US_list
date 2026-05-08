@@ -181,6 +181,7 @@ const server = http.createServer((req, res) => {
           US_MARGIN:         String(config.margin  ?? 25),
           US_FONTSIZE:       String(config.fontSize ?? 12),
           US_FONTSIZE_SMALL: String(config.fontSizeSmall ?? 10),
+          US_TOO_LONG:       String(config.tooLong ?? 20),
           US_FORMAT:         env.US_FORMAT,
           US_OPTIONS:        config.options        ?? '',
           US_JOB:            env.US_JOB,

@@ -76,8 +76,18 @@
         <input type="number" id="fontSize" value="12" min="6" max="36">
       </div>
       <div class="field">
-        <label class="field-label" for="fontSizeSmall" data-i18n="labels.smallFont">Small Font</label>
+        <label class="field-label with-tooltip" for="fontSizeSmall">
+          <span data-i18n="labels.smallFont">Small Font</span>
+          <span class="tooltip-wrap" tabindex="0" aria-label="Small font info">
+            <span class="tooltip-icon" aria-hidden="true">?</span>
+            <span class="tooltip-text" data-i18n-html="tooltips.smallFont">Used when an entry exceeds the Too Long Threshold value.</span>
+          </span>
+        </label>
         <input type="number" id="fontSizeSmall" value="10" min="6" max="36">
+      </div>
+      <div class="field">
+        <label class="field-label" for="tooLong" data-i18n="labels.tooLongThreshold">Too Long Threshold</label>
+        <input type="number" id="tooLong" value="20" min="1" max="200">
       </div>
     </div>
   </div>

@@ -162,6 +162,7 @@ async function runJob() {
     margin:        document.getElementById('margin').value,
     fontSize:      document.getElementById('fontSize').value,
     fontSizeSmall: document.getElementById('fontSizeSmall').value,
+    tooLong:       document.getElementById('tooLong').value,
     format:        document.getElementById('format').value.trim(),
     options:       opts.join('.'),
     job:           document.getElementById('job').value,
