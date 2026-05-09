@@ -169,6 +169,8 @@ The exact location may vary depending on the operating system and installation, 
 
 This project is configured for automated semantic versioning and GitHub Releases using `semantic-release`.
 
+Local commits can also bump the version automatically after `npm install` sets up the repo hook in this checkout. Non-breaking commits bump patch locally; breaking commits bump major.
+
 ### How it works
 
 - Every push to `main` or `master` triggers `.github/workflows/release.yml`.

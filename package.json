@@ -7,6 +7,7 @@
     "build": "npx tsc",
     "cli": "npm run build && node dist/index.js",
     "commitlint": "commitlint --from=HEAD~1 --to=HEAD",
+    "postinstall": "node scripts/setup-hooks.cjs",
     "gui": "npm run build && node dist/server.js",
     "bump:patch": "npm version patch --no-git-tag-version",
     "bump:minor": "npm version minor --no-git-tag-version",
