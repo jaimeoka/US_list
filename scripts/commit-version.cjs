@@ -17,6 +17,10 @@ if (!firstLine || firstLine.startsWith('Merge ')) {
   process.exit(0);
 }
 
+if (/^chore(?:\([^)]+\))?:\s*(?:bump|release)\b/i.test(firstLine)) {
+  process.exit(0);
+}
+
 const match = firstLine.match(/^(?<type>[a-z]+)(?<breaking>!)?(?:\([^)]+\))?:\s/);
 const isConventional = Boolean(match);
 const breaking = Boolean(match?.groups?.breaking) || /BREAKING CHANGE:/i.test(commitMessage);
