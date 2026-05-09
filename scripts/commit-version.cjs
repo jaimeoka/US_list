@@ -1,7 +1,10 @@
 const fs = require('fs');
-const { execFileSync } = require('child_process');
+const path = require('path');
 
 const messagePath = process.argv[2];
+const repoRoot = process.cwd();
+const packageJsonPath = path.join(repoRoot, 'package.json');
+const packageLockPath = path.join(repoRoot, 'package-lock.json');
 
 if (!messagePath || !fs.existsSync(messagePath)) {
   process.exit(0);
@@ -34,16 +37,31 @@ if (!releaseType) {
   process.exit(0);
 }
 
-execFileSync(
-  'npm',
-  ['version', releaseType, '--no-git-tag-version', '--no-commit-hooks'],
-  {
-    stdio: 'inherit',
-    cwd: process.cwd(),
-  },
-);
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+const packageLock = JSON.parse(fs.readFileSync(packageLockPath, 'utf8'));
 
-execFileSync('git', ['add', 'package.json', 'package-lock.json'], {
-  stdio: 'inherit',
-  cwd: process.cwd(),
-});
+const currentVersionParts = packageJson.version.split('.').map(Number);
+
+if (currentVersionParts.length !== 3 || currentVersionParts.some(Number.isNaN)) {
+  process.exit(1);
+}
+
+if (releaseType === 'patch') {
+  currentVersionParts[2] += 1;
+} else if (releaseType === 'major') {
+  currentVersionParts[0] += 1;
+  currentVersionParts[1] = 0;
+  currentVersionParts[2] = 0;
+}
+
+const nextVersion = currentVersionParts.join('.');
+
+packageJson.version = nextVersion;
+packageLock.version = nextVersion;
+
+if (packageLock.packages && packageLock.packages['']) {
+  packageLock.packages[''].version = nextVersion;
+}
+
+fs.writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);
+fs.writeFileSync(packageLockPath, `${JSON.stringify(packageLock, null, 2)}\n`);
