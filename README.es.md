@@ -153,50 +153,6 @@ C:\Users\<tu-usuario>\AppData\Roaming\ultrastardx\Ultrastar.db
 
 La ubicación exacta puede variar según el sistema operativo y la instalación.
 
-## Releases automatizados
-
-Este proyecto está configurado para versionado semántico automático y GitHub Releases usando `semantic-release`.
-
-### Cómo funciona
-
-- Cada push a `main` o `master` activa `.github/workflows/release.yml`.
-- `semantic-release` lee los mensajes de commit desde la última etiqueta y decide si debe publicar una nueva release.
-- Las reglas de versionado siguen Conventional Commits:
-	- `fix: ...` -> release patch
-	- `feat: ...` -> release minor
-	- `feat!: ...` o `BREAKING CHANGE:` -> release major
-- En cada release, el pipeline actualiza:
-	- `CHANGELOG.md`
-	- `package.json`
-	- `package-lock.json`
-	- etiqueta Git y notas de GitHub Release
-
-### Validación de mensajes de commit
-
-Los pull requests ejecutan `.github/workflows/commitlint.yml` para validar mensajes de commit con Conventional Commits.
-
-### Comandos locales
-
-- Simulación (sin publicar):
-
-```bash
-npm run release:dry
-```
-
-- Ejecución manual de release (normalmente debe hacerlo CI):
-
-```bash
-npm run release
-```
-
-### Ejemplos de mensajes de commit
-
-```text
-feat(gui): show app version badge in header
-fix(server): return better message when db path is invalid
-feat!: drop Node 18 support
-```
-
 ## Contacto
 
 Sugerencias: jaimeoka@gmail.com

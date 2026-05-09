@@ -165,52 +165,6 @@ C:\Users\<your-user>\AppData\Roaming\ultrastardx\Ultrastar.db
 
 The exact location may vary depending on the operating system and installation, so if needed, search for `Ultrastar.db` manually.
 
-## Automated Releases
-
-This project is configured for automated semantic versioning and GitHub Releases using `semantic-release`.
-
-Local commits can also bump the version automatically after `npm install` sets up the repo hook in this checkout. Non-breaking commits bump patch locally; breaking commits bump major.
-
-### How it works
-
-- Every push to `main` or `master` triggers `.github/workflows/release.yml`.
-- `semantic-release` reads commit messages since the last tag and decides whether to publish a new release.
-- Versioning rules follow Conventional Commits:
-	- `fix: ...` -> patch release
-	- `feat: ...` -> minor release
-	- `feat!: ...` or `BREAKING CHANGE:` -> major release
-- On release, the pipeline updates:
-	- `CHANGELOG.md`
-	- `package.json`
-	- `package-lock.json`
-	- Git tag and GitHub Release notes
-
-### Commit message validation
-
-Pull requests run `.github/workflows/commitlint.yml` to validate commit messages against Conventional Commits.
-
-### Local commands
-
-- Dry run (no publish):
-
-```bash
-npm run release:dry
-```
-
-- Manual release run (usually CI should do this):
-
-```bash
-npm run release
-```
-
-### Example commit messages
-
-```text
-feat(gui): show app version badge in header
-fix(server): return better message when db path is invalid
-feat!: drop Node 18 support
-```
-
 ## Contact
 
 Suggestions: jaimeoka@gmail.com
