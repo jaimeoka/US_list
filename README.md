@@ -18,19 +18,31 @@ It supports two ways of working:
 
 ## Quick Start
 
-1. Install dependencies:
+1. Install Node.js:
+   - Download and install from: https://nodejs.org/en/download/
+
+2. Download this project from GitHub:
+	 - Option A (recommended for beginners, no Git needed):
+		 1. Open: https://github.com/jaimeoka/US_list
+		 2. Click the green `Code` button.
+		 3. Click `Download ZIP`.
+		 4. Extract the ZIP file to a folder on your computer.
+	 - Option B (if you already use Git):
+
+```bash
+git clone https://github.com/jaimeoka/US_list.git
+cd US_list
+```
+
+3. Open the project folder in a terminal.
+
+4. Install dependencies:
 
 ```bash
 npm install
 ```
 
-2. Run the original script mode:
-
-```bash
-npm run cli
-```
-
-3. Or start the browser mode:
+5. Start the browser mode:
 
 ```bash
 npm run gui
@@ -40,6 +52,12 @@ Then open:
 
 ```text
 http://localhost:3000
+```
+
+6. Or run the original script mode:
+
+```bash
+npm run cli
 ```
 
 ## Project Structure
@@ -75,20 +93,6 @@ You can configure:
 - Sorting and filtering options
 - Whether to read scores from the Ultrastar database
 - Database path
-
-## Requirements
-
-- Node.js: https://nodejs.org/en/download/
-
-## Setup
-
-1. Clone or download this project.
-2. Open the project folder in a terminal.
-3. Install dependencies:
-
-```bash
-npm install
-```
 
 ## Usage
 

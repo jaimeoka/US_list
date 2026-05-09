@@ -18,19 +18,31 @@ Es unterstuetzt zwei Arbeitsweisen:
 
 ## Schnellstart
 
-1. Abhängigkeiten installieren:
+1. Installiere Node.js:
+   - Lade es hier herunter und installiere es: https://nodejs.org/en/download/
+
+2. Lade dieses Projekt von GitHub herunter:
+	 - Option A (empfohlen fuer Einsteiger, ohne Git):
+		 1. Oeffne: https://github.com/jaimeoka/US_list
+		 2. Klicke auf den gruenen Button `Code`.
+		 3. Klicke auf `Download ZIP`.
+		 4. Entpacke die ZIP-Datei in einen Ordner auf deinem Computer.
+	 - Option B (wenn du bereits Git nutzt):
+
+```bash
+git clone https://github.com/jaimeoka/US_list.git
+cd US_list
+```
+
+3. Oeffne den Projektordner in einem Terminal.
+
+4. Abhängigkeiten installieren:
 
 ```bash
 npm install
 ```
 
-2. Den ursprünglichen Skriptmodus starten:
-
-```bash
-npm run cli
-```
-
-3. Oder den Browsermodus starten:
+5. Den Browsermodus starten:
 
 ```bash
 npm run gui
@@ -40,6 +52,12 @@ Danach öffnen:
 
 ```text
 http://localhost:3000
+```
+
+6. Oder den ursprünglichen Skriptmodus starten:
+
+```bash
+npm run cli
 ```
 
 ## Projektstruktur
@@ -75,10 +93,6 @@ Konfigurierbar sind:
 - Sortier- und Filteroptionen
 - Ob Scores aus der Ultrastar-Datenbank gelesen werden sollen
 - Datenbankpfad
-
-## Voraussetzungen
-
-- Node.js: https://nodejs.org/en/download/
 
 ## Verwendung
 

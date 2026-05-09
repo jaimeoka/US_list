@@ -18,19 +18,31 @@ Funciona de dos maneras:
 
 ## Inicio rápido
 
-1. Instala las dependencias:
+1. Instala Node.js:
+   - Descárgalo e instálalo desde: https://nodejs.org/en/download/
+
+2. Descarga este proyecto desde GitHub:
+	 - Opción A (recomendada para principiantes, sin usar Git):
+		 1. Abre: https://github.com/jaimeoka/US_list
+		 2. Haz clic en el botón verde `Code`.
+		 3. Haz clic en `Download ZIP`.
+		 4. Extrae el archivo ZIP en una carpeta de tu ordenador.
+	 - Opción B (si ya usas Git):
+
+```bash
+git clone https://github.com/jaimeoka/US_list.git
+cd US_list
+```
+
+3. Abre la carpeta del proyecto en una terminal.
+
+4. Instala las dependencias:
 
 ```bash
 npm install
 ```
 
-2. Ejecuta el modo de script original:
-
-```bash
-npm run cli
-```
-
-3. O inicia el modo navegador:
+5. Inicia el modo navegador:
 
 ```bash
 npm run gui
@@ -40,6 +52,12 @@ Después abre:
 
 ```text
 http://localhost:3000
+```
+
+6. O ejecuta el modo de script original:
+
+```bash
+npm run cli
 ```
 
 ## Estructura del proyecto
@@ -75,10 +93,6 @@ Puedes configurar:
 - Opciones de ordenación y filtrado
 - Si se deben leer puntuaciones desde la base de datos de Ultrastar
 - Ruta de la base de datos
-
-## Requisitos
-
-- Node.js: https://nodejs.org/en/download/
 
 ## Uso
 
